@@ -49,7 +49,14 @@
       "unicorn"
     ],
     "rules": {
-      "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*spec.js"] } ]
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": [
+            "**/*spec.js"
+          ]
+        }
+      ]
     },
     "space": true,
     "overrides": [
