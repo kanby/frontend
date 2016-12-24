@@ -1,8 +1,8 @@
-import server from './server';
 import { expect } from 'chai';
+import server from './server';
 
 describe('application server', () => {
   it('works', () => {
-    expect(true).to.be.true;
+    expect(server).to.be.defined; // eslint-disable-line no-unused-expressions
   });
 });

@@ -2,6 +2,7 @@
   "scripts": {
     "build": "yarn build:server",
     "build:server": "webpack",
+    "lint": "xo",
     "start": "node dist/server.js",
     "test": "yarn test:client;yarn test:shared;yarn test:server",
     "test:client": "mocha --opts .mocharc client/**/*.spec.js",
@@ -31,10 +32,42 @@
     "babel-preset-react-hmre": "^1.1.1",
     "chai": "^3.5.0",
     "enzyme": "^2.7.0",
-    "eslint": "^3.12.2",
-    "eslint-config-airbnb-base": "^11.0.0",
+    "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0",
     "mocha": "^3.2.0",
-    "webpack": "2.2.0-rc.0"
+    "webpack": "2.2.0-rc.0",
+    "xo": "^0.17.1"
+  },
+  "xo": {
+    "esnext": true,
+    "extends": [
+      "airbnb"
+    ],
+    "plugins": [
+      "unicorn"
+    ],
+    "rules": {
+      "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*spec.js"] } ]
+    },
+    "space": true,
+    "overrides": [
+      {
+        "files": "server/middleware/**/*.js",
+        "rules": {
+          "no-param-reassign": 0
+        }
+      },
+      {
+        "files": "**/*spec.js",
+        "envs": [
+          "mocha"
+        ],
+        "rules": {
+          "no-unused-expressions": 0
+        }
+      }
+    ]
   }
 }

@@ -5,16 +5,16 @@ module.exports = [
     entry: './server/index.js',
     output: {
       path: `${__dirname}/dist`,
-      filename: 'server.js'
+      filename: 'server.js',
     },
     module: {
       loaders: [
         {
           test: /\.js$/,
-          loader: 'babel-loader'
-        }
-      ]
+          loader: 'babel-loader',
+        },
+      ],
     },
-    target: 'node'
-  }
+    target: 'node',
+  },
 ];
