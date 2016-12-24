@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "yarn build:server",
-    "build:server": "webpack",
+    "build:server": "webpack --progress",
     "lint": "xo",
     "start": "node dist/server.js",
     "test": "yarn test:client;yarn test:shared;yarn test:server",
