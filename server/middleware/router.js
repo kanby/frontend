@@ -7,9 +7,9 @@ router.get('/health', ctx => {
   ctx.status = 200;
 });
 
-router.get(/^\/(.*)(?:\/|$)/, ctx => {
+router.get(/^\/(.*)\/?$/, ctx => {
   ctx.body = 'hello, world!';
   ctx.status = 200;
-})
+});
 
 export default router;
