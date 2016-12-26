@@ -1,4 +1,5 @@
 import Router from 'koa-router';
+import appTemplate from '../templates/app';
 
 const router = new Router();
 
@@ -8,7 +9,11 @@ router.get('/health', (ctx) => {
 });
 
 router.get(/^\/(.*)\/?$/, (ctx) => {
-  ctx.body = 'hello, world!';
+  ctx.body = appTemplate({
+    locale: 'en',
+    body: '',
+    title: 'hello, world!',
+  });
   ctx.status = 200;
 });
 

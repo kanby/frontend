@@ -1,3 +1,5 @@
+const postcssModules = require('postcss-modules');
+
 module.exports = [
   {
     name: 'server',
@@ -12,6 +14,20 @@ module.exports = [
         {
           test: /\.js$/,
           loader: 'babel-loader',
+        },
+        {
+          test: /\.css$/,
+          use: [
+            'css-loader/locals',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [
+                  postcssModules,
+                ],
+              },
+            },
+          ],
         },
       ],
     },
@@ -30,6 +46,21 @@ module.exports = [
         {
           test: /\.js$/,
           loader: 'babel-loader',
+        },
+        {
+          test: /\.css$/,
+          use: [
+            'style-loader',
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [
+                  postcssModules,
+                ],
+              },
+            },
+          ],
         },
       ],
     },
