@@ -12,14 +12,6 @@ module.exports = [
         {
           test: /\.js$/,
           loader: 'babel-loader',
-          query: {
-            presets: ['node7', 'react'],
-            env: {
-              development: {
-                presets: ['react-hmre'],
-              },
-            },
-          },
         },
       ],
     },
@@ -38,14 +30,6 @@ module.exports = [
         {
           test: /\.js$/,
           loader: 'babel-loader',
-          query: {
-            presets: ['latest'],
-            env: {
-              development: {
-                presets: ['react-hmre'],
-              },
-            },
-          },
         },
       ],
     },

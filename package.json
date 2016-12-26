@@ -5,10 +5,7 @@
     "lint:fix": "xo --fix",
     "lint:open": "xo --open",
     "start": "node dist/server.js",
-    "test": "yarn test:client;yarn test:shared;yarn test:server",
-    "test:client": "mocha --opts .mocharc client/**/*.spec.js",
-    "test:shared": "mocha --opts .mocharc shared/**/*.spec.js",
-    "test:server": "mocha --opts .mocharc server/**/*.spec.js"
+    "test": "mocha --require babel-core/register **/*.spec.js"
   },
   "dependencies": {
     "apollo-client": "^0.5.20",
@@ -58,9 +55,6 @@
           ]
         }
       ]
-    },
-    "settings": {
-      "import/resolver": "webpack"
     },
     "space": true,
     "overrides": [
