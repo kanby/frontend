@@ -1,4 +1,8 @@
+import React from 'react';
+import { renderToString } from 'react-dom/server';
 import Router from 'koa-router';
+import App from 'components/app';
+
 import appTemplate from '../templates/app';
 
 const router = new Router();
@@ -11,9 +15,10 @@ router.get('/health', (ctx) => {
 router.get(/^\/(.*)\/?$/, (ctx) => {
   ctx.body = appTemplate({
     locale: 'en',
-    body: '',
-    title: 'hello, world!',
+    body: renderToString(<App />),
+    title: 'Kanby',
   });
+
   ctx.status = 200;
 });
 

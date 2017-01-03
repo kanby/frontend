@@ -13,7 +13,7 @@ const Template = ({ body, locale, title }) => (
       <title>{title}</title>
     </head>
     <body>
-      <div id="application" dangerouslySetInnerHtml={{ __html: body }} />
+      <div id="application" dangerouslySetInnerHTML={{ __html: body }} />
     </body>
   </html>
 );

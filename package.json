@@ -5,7 +5,8 @@
     "lint:fix": "xo --fix",
     "lint:open": "xo --open",
     "start": "node dist/server.js",
-    "test": "mocha --require babel-core/register **/*.spec.js"
+    "test": "mocha",
+    "test:watch": "mocha --watch"
   },
   "dependencies": {
     "apollo-client": "^0.5.20",
@@ -13,8 +14,6 @@
     "fecha": "^2.3.0",
     "koa": "next",
     "koa-router": "next",
-    "postcss": "^5.2.7",
-    "postcss-modules": "^0.5.2",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^5.0.1",
@@ -26,18 +25,28 @@
     "babel-core": "^6.20.0",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.10",
+    "babel-plugin-webpack-alias": "^2.1.2",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-node7": "^1.4.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-react-hmre": "^1.1.1",
     "chai": "^3.5.0",
+    "css-loader": "^0.26.1",
+    "css-modules-require-hook": "^4.0.5",
     "enzyme": "^2.7.0",
     "eslint-config-airbnb": "^13.0.0",
+    "eslint-import-resolver-webpack": "^0.8.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
     "mocha": "^3.2.0",
+    "postcss": "^5.2.8",
+    "postcss-loader": "^1.2.1",
+    "postcss-modules": "^0.5.2",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0",
     "webpack": "2.2.0-rc.0",
+    "webpack-merge": "^2.0.0",
     "xo": "^0.17.1"
   },
   "xo": {
@@ -48,13 +57,18 @@
     "plugins": [
       "unicorn"
     ],
+    "settings": {
+      "import/resolver": "webpack"
+    },
     "rules": {
       "react/jsx-filename-extension": 0,
       "import/no-extraneous-dependencies": [
         "error",
         {
           "devDependencies": [
-            "**/*spec.js"
+            "./test/*.js",
+            "**/*spec.js",
+            "webpack.config.js"
           ]
         }
       ]
@@ -65,6 +79,12 @@
         "files": "server/middleware/**/*.js",
         "rules": {
           "no-param-reassign": 0
+        }
+      },
+      {
+        "files": "server/templates/**/*.js",
+        "rules": {
+          "react/no-danger": 0
         }
       },
       {
