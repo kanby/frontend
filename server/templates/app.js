@@ -14,6 +14,7 @@ const Template = ({ body, locale, title }) => (
     </head>
     <body>
       <div id="application" dangerouslySetInnerHTML={{ __html: body }} />
+      <script type="text/javascript" src="/assets/client.js" />
     </body>
   </html>
 );

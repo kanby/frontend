@@ -39,14 +39,20 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
+    "koa-connect": "git://github.com/vkurchatkin/koa-connect#vNext",
+    "koa-mount": "next",
     "mocha": "^3.2.0",
     "postcss": "^5.2.8",
     "postcss-loader": "^1.2.1",
     "postcss-modules": "^0.5.2",
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
+    "style-loader": "^0.13.1",
     "webpack": "2.2.0-rc.0",
+    "webpack-dev-middleware": "^1.9.0",
+    "webpack-hot-middleware": "^2.15.0",
     "webpack-merge": "^2.0.0",
+    "webpack-node-externals": "^1.5.4",
     "xo": "^0.17.1"
   },
   "xo": {
@@ -68,7 +74,8 @@
           "devDependencies": [
             "./test/*.js",
             "**/*spec.js",
-            "webpack.config.js"
+            "webpack.config.js",
+            "server.dev.js"
           ]
         }
       ]
@@ -95,6 +102,12 @@
         "rules": {
           "no-unused-expressions": 0
         }
+      },
+      {
+        "files": "client/**/*.js",
+        "envs": [
+          "browser"
+        ]
       }
     ]
   }

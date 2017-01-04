@@ -12,10 +12,7 @@ const conf = {
   },
   module: {
     loaders: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-      },
+
     ],
   },
   resolve: {
@@ -36,6 +33,13 @@ module.exports = [
     module: {
       loaders: [
         {
+          test: /\.js$/,
+          loader: 'babel-loader',
+          query: {
+            presets: ['node7', 'react'],
+          },
+        },
+        {
           test: /\.css$/,
           use: [
             'css-loader/locals',
@@ -55,16 +59,23 @@ module.exports = [
   }),
   merge(conf, {
     name: 'client',
-    entry: path.join(__dirname, 'client', 'index.js'),
+    entry: [path.join(__dirname, 'client', 'index.js')],
     output: {
-      filename: '[hash:5]-client.js',
+      filename: 'client.js',
+      publicPath: '/assets/',
     },
     module: {
       loaders: [
         {
+          test: /\.js$/,
+          loader: 'babel-loader',
+          query: {
+            presets: ['node7', 'react'],
+          },
+        },
+        {
           test: /\.css$/,
           use: [
-            'style-loader',
             'css-loader',
             {
               loader: 'postcss-loader',

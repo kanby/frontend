@@ -12,7 +12,7 @@ router.get('/health', (ctx) => {
   ctx.status = 200;
 });
 
-router.get(/^\/(.*)\/?$/, (ctx) => {
+router.get(/^\/(.*)\/?$/, (ctx, next) => {
   ctx.body = appTemplate({
     locale: 'en',
     body: renderToString(<App />),
@@ -20,6 +20,8 @@ router.get(/^\/(.*)\/?$/, (ctx) => {
   });
 
   ctx.status = 200;
+
+  return next();
 });
 
 export default router;
