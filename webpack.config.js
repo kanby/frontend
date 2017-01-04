@@ -1,19 +1,12 @@
 const merge = require('webpack-merge');
 const path = require('path');
-const postcssModules = require('postcss-modules');
 
-const generateScopedName = '[name]-[hash:base64:5]';
-const postcssModulesPlugin = postcssModules({ generateScopedName });
+const localIdentName = require('./postcss.config.js').generateScopedName;
 
 const conf = {
   context: __dirname,
   output: {
     path: path.join(__dirname, 'dist'),
-  },
-  module: {
-    loaders: [
-
-    ],
   },
   resolve: {
     alias: {
@@ -31,7 +24,7 @@ module.exports = [
       filename: 'server.js',
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.js$/,
           loader: 'babel-loader',
@@ -42,15 +35,8 @@ module.exports = [
         {
           test: /\.css$/,
           use: [
-            'css-loader/locals',
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: [
-                  postcssModulesPlugin,
-                ],
-              },
-            },
+            { loader: 'css-loader/locals', query: { modules: true, localIdentName, importLoaders: 1 } },
+            { loader: 'postcss-loader' },
           ],
         },
       ],
@@ -65,31 +51,23 @@ module.exports = [
       publicPath: '/assets/',
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.js$/,
           loader: 'babel-loader',
           query: {
-            presets: ['node7', 'react'],
+            presets: ['latest', 'react'],
           },
         },
         {
           test: /\.css$/,
           use: [
-            'css-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: [
-                  postcssModulesPlugin,
-                ],
-              },
-            },
+            { loader: 'style-loader' },
+            { loader: 'css-loader', query: { modules: true, localIdentName, importLoaders: 1 } },
+            { loader: 'postcss-loader' },
           ],
         },
       ],
     },
   }),
 ];
-
-exports.generateScopedName = generateScopedName;

@@ -1,6 +1,7 @@
 {
   "scripts": {
     "build": "webpack --progress",
+    "dev": "node server.dev.js",
     "lint": "xo",
     "lint:fix": "xo --fix",
     "lint:open": "xo --open",
@@ -14,6 +15,7 @@
     "fecha": "^2.3.0",
     "koa": "next",
     "koa-router": "next",
+    "postcss-cssnext": "^2.9.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^5.0.1",
@@ -29,7 +31,6 @@
     "babel-preset-latest": "^6.16.0",
     "babel-preset-node7": "^1.4.0",
     "babel-preset-react": "^6.16.0",
-    "babel-preset-react-hmre": "^1.1.1",
     "chai": "^3.5.0",
     "css-loader": "^0.26.1",
     "css-modules-require-hook": "^4.0.5",
@@ -44,7 +45,7 @@
     "mocha": "^3.2.0",
     "postcss": "^5.2.8",
     "postcss-loader": "^1.2.1",
-    "postcss-modules": "^0.5.2",
+    "react-hot-loader": "next",
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.1",
@@ -74,6 +75,7 @@
           "devDependencies": [
             "./test/*.js",
             "**/*spec.js",
+            "postcss.config.js",
             "webpack.config.js",
             "server.dev.js"
           ]

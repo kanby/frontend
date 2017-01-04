@@ -17,27 +17,30 @@ const serverConfig = webpackConfig.find(c => c.name === 'server');
 const server = new Koa();
 const serverPort = 3000;
 
-const mergedConfig = merge.smart(clientConfig, {
-  entry: ['webpack-hot-middleware/client'],
+const mergedConfig = merge.smartStrategy({ entry: 'prepend' })(clientConfig, {
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-hot-middleware/client',
+  ],
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        query: {
-          presets: clientConfig.module.loaders.find(l => l.loader === 'babel-loader').query.presets.concat('react-hmre'),
-        },
+        query: Object.assign({}, clientConfig.module.rules.find(l => l.loader === 'babel-loader').query, {
+          plugins: ['react-hot-loader/babel'],
+        }),
       },
     ],
   },
 });
 
-console.log(mergedConfig.module.loaders);
+console.log(mergedConfig.module.rules);
 
 const clientCompiler = webpack(mergedConfig);
 

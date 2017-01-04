@@ -1,11 +1,11 @@
-const conf = require('../webpack.config.js');
+const postcss = require('../postcss.config.js');
 
 require('babel-core/register')({
   plugins: ['babel-plugin-webpack-alias'],
 });
 
 require('css-modules-require-hook')({
-  generateScopedName: conf.generateScopedName,
+  generateScopedName: postcss.generateScopedName,
 });
 
 require('chai').use(require('sinon-chai'));
