@@ -2,9 +2,10 @@
   "scripts": {
     "build": "webpack --progress",
     "dev": "node server.dev.js",
-    "lint": "xo",
+    "lint": "yarn lint:js && yarn lint:css",
+    "lint:js": "xo",
+    "lint:css": "stylelint ./**/*.css",
     "lint:fix": "xo --fix",
-    "lint:open": "xo --open",
     "start": "node dist/server.js",
     "test": "mocha",
     "test:watch": "mocha --watch"
@@ -43,6 +44,8 @@
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.1",
+    "stylelint": "^7.7.1",
+    "stylelint-config-standard": "^15.0.1",
     "webpack": "2.2.0-rc.3",
     "webpack-dev-middleware": "^1.9.0",
     "webpack-hot-middleware": "^2.15.0",
@@ -82,19 +85,23 @@
     "space": true,
     "overrides": [
       {
-        "files": "server/middleware/**/*.js",
+        "files": "server/middleware/**/!(*.spec).js",
         "rules": {
           "no-param-reassign": 0
         }
       },
       {
-        "files": "server/templates/**/*.js",
+        "files": "server/templates/**/!(*.spec).js",
         "rules": {
           "inferno/no-danger": 0
         }
       },
       {
-        "files": "**/*spec.js",
+        "files": [
+          "server/**/*.spec.js",
+          "client/**/*.spec.js",
+          "shared/**/*.spec.js"
+        ],
         "envs": [
           "mocha"
         ],
@@ -103,7 +110,7 @@
         }
       },
       {
-        "files": "client/**/*.js",
+        "files": "client/**/!(*.spec).js",
         "envs": [
           "browser"
         ]
