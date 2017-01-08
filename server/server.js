@@ -1,8 +1,7 @@
 import Koa from 'koa';
 import routes from 'shared/routes';
 
-import { router, logger } from './middleware';
-import infernoRouter from './middleware/inferno-router-koa';
+import { router, logger, infernoRouter } from './middleware';
 
 const server = new Koa();
 

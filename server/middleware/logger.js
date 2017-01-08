@@ -1,6 +1,6 @@
 import { log } from '../util';
 
 export default (ctx, next) => {
-  log(`${ctx.request.method} ${ctx.request.path}`);
+  log(`${ctx.method} ${ctx.url}`);
   return next();
 };

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 describe('application server', () => {
-  it('works', () => {
+  it.skip('should have tests', () => {
     expect.fail();
   });
 });
