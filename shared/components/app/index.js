@@ -1,11 +1,11 @@
 import Inferno from 'inferno';
 import Navbar from 'compositions/navbar';
 
-const App = () => (
+const App = ({ children }) => (
   <div>
     <Navbar />
     <main role="main">
-      hello, world!
+      {children}
     </main>
   </div>
 );

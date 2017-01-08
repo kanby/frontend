@@ -37,15 +37,14 @@ const devMiddleware = connect(webpackDevMiddleware(clientCompiler, {
 
 const hotMiddleware = connect(webpackHotMiddleware(clientCompiler));
 
-server.use((ctx, next) => {
-  ctx.res.statusCode = 200;
-  return next();
-});
-
 server.use(devMiddleware);
 
 server.use((ctx, next) => {
-  ctx.res.statusCode = undefined;
+  if (ctx.res.statusCode >= 100 && ctx.res.statusCode < 600) {
+    ctx.status = ctx.res.statusCode;
+  } else {
+    ctx.status = 500;
+  }
   return next();
 });
 

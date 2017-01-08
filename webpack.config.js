@@ -12,11 +12,13 @@ const conf = {
   },
   resolve: {
     alias: {
-      components: path.resolve(__dirname, 'shared', 'components'),
-      compositions: path.resolve(__dirname, 'shared', 'compositions'),
+      components: 'shared/components',
+      compositions: 'shared/compositions',
+      shared: path.resolve(__dirname, 'shared'),
     },
   },
   plugins: [],
+  devtool: 'source-map',
 };
 
 module.exports = [

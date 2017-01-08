@@ -1,12 +1,14 @@
 import Koa from 'koa';
+import routes from 'shared/routes';
 
 import { router, logger } from './middleware';
+import infernoRouter from './middleware/inferno-router-koa';
 
 const server = new Koa();
 
 server.use(logger);
+server.use(infernoRouter(routes, { stream: true }));
 server.use(router.routes());
 server.use(router.allowedMethods());
-server.use(logger);
 
 export default server;
