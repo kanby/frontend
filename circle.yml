@@ -19,7 +19,7 @@ dependencies:
 
 test:
   override:
-    - yarn test -- --reporter mocha-junit-reporter:
+    - yarn test -- --reporter mocha-multi-reporters --reporter-options configFile=test/circle-reporter.json:
         environment:
           MOCHA_FILE: $CIRCLE_TEST_REPORTS/junit/test-results.xml
     - yarn lint
