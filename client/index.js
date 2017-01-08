@@ -1,5 +1,4 @@
-import React from 'react';
-import { render } from 'react-dom';
+import Inferno, { render } from 'inferno';
 
 import App from 'components/app';
 

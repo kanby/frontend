@@ -1,5 +1,5 @@
-import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
+import Inferno from 'inferno';
+import { renderToStaticMarkup } from 'inferno-server';
 
 const baseTemplate = `
   <!DOCTYPE html>
@@ -19,10 +19,6 @@ const Template = ({ body, locale, title }) => (
   </html>
 );
 
-Template.propTypes = {
-  body: React.PropTypes.string,
-  locale: React.PropTypes.string,
-  title: React.PropTypes.string,
-};
+// TODO: Flow types -> Proptypes interop
 
 export default props => baseTemplate.replace('{{content}}', renderToStaticMarkup(<Template {...props} />));

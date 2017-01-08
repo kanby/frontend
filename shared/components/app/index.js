@@ -1,5 +1,4 @@
-import React from 'react';
-
+import Inferno from 'inferno';
 import Navbar from 'compositions/navbar';
 
 const App = () => (

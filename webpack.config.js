@@ -1,5 +1,7 @@
 const merge = require('webpack-merge');
+const webpack = require('webpack');
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
 const localIdentName = require('./postcss.config.js').generateScopedName;
 
@@ -30,7 +32,8 @@ module.exports = [
           test: /\.js$/,
           loader: 'babel-loader',
           query: {
-            presets: ['node7', 'react'],
+            presets: ['node7'],
+            plugins: ['inferno'],
           },
         },
         {
@@ -42,6 +45,7 @@ module.exports = [
         },
       ],
     },
+    externals: [nodeExternals()],
     target: 'node',
   }),
   merge(conf, {
@@ -57,8 +61,8 @@ module.exports = [
           test: /\.js$/,
           loader: 'babel-loader',
           query: {
-            presets: ['latest', 'react'],
-            plugins: [],
+            presets: ['latest'],
+            plugins: ['inferno'],
           },
         },
         {
@@ -71,5 +75,12 @@ module.exports = [
         },
       ],
     },
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('production'),
+        },
+      }),
+    ],
   }),
 ];

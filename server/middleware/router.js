@@ -1,5 +1,5 @@
-import React from 'react';
-import { renderToString } from 'react-dom/server';
+import Inferno from 'inferno';
+import { renderToString } from 'inferno-server';
 import Router from 'koa-router';
 import App from 'components/app';
 

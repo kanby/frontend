@@ -1,7 +1,11 @@
 const postcss = require('../postcss.config.js');
 
 require('babel-core/register')({
-  plugins: ['babel-plugin-webpack-alias'],
+  presets: ['latest'],
+  plugins: [
+    'babel-plugin-webpack-alias',
+    'inferno',
+  ],
 });
 
 require('css-modules-require-hook')({

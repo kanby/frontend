@@ -1,4 +1,4 @@
-import React from 'react';
+import Inferno from 'inferno';
 import styles from './styles.css';
 
 const Navbar = () => (

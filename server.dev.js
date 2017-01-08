@@ -18,7 +18,6 @@ const serverPort = 3000;
 
 const config = Object.assign({}, clientConfig, {
   entry: [
-    'react-hot-loader/patch',
     'webpack-hot-middleware/client',
   ].concat(clientConfig.entry),
   plugins: clientConfig.plugins.concat([
@@ -27,10 +26,6 @@ const config = Object.assign({}, clientConfig, {
     new webpack.NoErrorsPlugin(),
   ]),
 });
-
-config.module.rules
-  .find(rule => rule.loader === 'babel-loader')
-  .query.plugins.push('react-hot-loader/babel');
 
 const clientCompiler = webpack(config);
 
