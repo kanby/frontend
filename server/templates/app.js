@@ -8,7 +8,7 @@ const Template = ({ body, locale, title }) => `<!DOCTYPE html>
     <div id="application">
       ${body}
     </div>
-    <script type="text/javascript" src="/assets/client.js" />
+    <script type="text/javascript" src="/assets/client.js"></script>
   </body>
 </html>
 `;
