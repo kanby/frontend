@@ -7,7 +7,6 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('./webpack.config.js');
-const merge = require('webpack-merge');
 const connect = require('koa-connect');
 const mount = require('koa-mount');
 
@@ -17,36 +16,27 @@ const serverConfig = webpackConfig.find(c => c.name === 'server');
 const server = new Koa();
 const serverPort = 3000;
 
-const mergedConfig = merge.smartStrategy({ entry: 'prepend' })(clientConfig, {
+const config = Object.assign({}, clientConfig, {
   entry: [
     'react-hot-loader/patch',
     'webpack-hot-middleware/client',
-  ],
-  plugins: [
+  ].concat(clientConfig.entry),
+  plugins: clientConfig.plugins.concat([
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        query: Object.assign({}, clientConfig.module.rules.find(l => l.loader === 'babel-loader').query, {
-          plugins: ['react-hot-loader/babel'],
-        }),
-      },
-    ],
-  },
+  ]),
 });
 
-console.log(mergedConfig.module.rules);
+config.module.rules
+  .find(rule => rule.loader === 'babel-loader')
+  .query.plugins.push('react-hot-loader/babel');
 
-const clientCompiler = webpack(mergedConfig);
+const clientCompiler = webpack(config);
 
 const devMiddleware = connect(webpackDevMiddleware(clientCompiler, {
-  noInfo: false,
-  quiet: false,
+  noInfo: true,
+  quiet: true,
   publicPath: clientConfig.output.publicPath,
 }));
 
@@ -67,11 +57,9 @@ server.use((ctx, next) => {
 server.use(hotMiddleware);
 server.listen(serverPort);
 
-const serverCompiler = webpack(merge(serverConfig, {
+const serverCompiler = webpack(Object.assign({}, serverConfig, {
   entry: path.join(__dirname, 'server', 'server.js'),
-  output: {
-    libraryTarget: 'commonjs2',
-  },
+  output: Object.assign({}, serverConfig.output, { libraryTarget: 'commonjs2' }),
 }));
 
 const serverFile = path.join(serverConfig.output.path, serverConfig.output.filename);
@@ -83,7 +71,7 @@ serverCompiler.watch({}, (err) => {
     throw (err);
   }
 
-  const i = server.middleware.findIndex(mw => mw === serverMiddleware);
+  const i = server.middleware.indexOf(serverMiddleware);
   const exists = (i !== -1);
 
   if (exists) {

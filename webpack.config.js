@@ -14,6 +14,7 @@ const conf = {
       compositions: path.resolve(__dirname, 'shared', 'compositions'),
     },
   },
+  plugins: [],
 };
 
 module.exports = [
@@ -57,6 +58,7 @@ module.exports = [
           loader: 'babel-loader',
           query: {
             presets: ['latest', 'react'],
+            plugins: [],
           },
         },
         {
