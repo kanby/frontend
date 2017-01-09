@@ -1,5 +1,9 @@
 {
   "extends": [
-    "stylelint-config-standard"
-  ]
+    "stylelint-config-standard",
+    "stylelint-config-css-modules"
+  ],
+  "rules": {
+    "declaration-block-properties-order": [["composes"], { "unspecified": "bottomAlphabetical" }]
+  }
 }

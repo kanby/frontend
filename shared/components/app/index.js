@@ -1,5 +1,6 @@
 import Inferno from 'inferno';
 import Navbar from 'compositions/navbar';
+import 'shared/styles/global.css';
 
 const App = ({ children }) => (
   <div>

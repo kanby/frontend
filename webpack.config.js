@@ -3,8 +3,6 @@ const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
-const localIdentName = require('./postcss.config.js').generateScopedName;
-
 const conf = {
   context: __dirname,
   output: {
@@ -41,7 +39,7 @@ module.exports = [
         {
           test: /\.css$/,
           use: [
-            { loader: 'css-loader/locals', query: { modules: true, localIdentName, importLoaders: 1 } },
+            { loader: 'css-loader/locals', query: { importLoaders: 1 } },
             { loader: 'postcss-loader' },
           ],
         },
@@ -71,7 +69,7 @@ module.exports = [
           test: /\.css$/,
           use: [
             { loader: 'style-loader' },
-            { loader: 'css-loader', query: { modules: true, localIdentName, importLoaders: 1 } },
+            { loader: 'css-loader', query: { importLoaders: 1 } },
             { loader: 'postcss-loader' },
           ],
         },
