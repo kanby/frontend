@@ -10,9 +10,10 @@ const conf = {
   },
   resolve: {
     alias: {
-      components: 'shared/components',
-      compositions: 'shared/compositions',
-      shared: path.resolve(__dirname, 'shared'),
+      components: path.resolve(__dirname, 'src', 'shared', 'components'),
+      compositions: path.resolve(__dirname, 'src', 'shared', 'compositions'),
+      shared: path.resolve(__dirname, 'src', 'shared'),
+      test: path.resolve(__dirname, 'test'),
     },
   },
   plugins: [],
@@ -22,7 +23,7 @@ const conf = {
 module.exports = [
   merge(conf, {
     name: 'server',
-    entry: path.join(__dirname, 'server', 'index.js'),
+    entry: path.join(__dirname, 'src', 'server', 'index.js'),
     output: {
       filename: 'server.js',
     },
@@ -50,7 +51,7 @@ module.exports = [
   }),
   merge(conf, {
     name: 'client',
-    entry: [path.join(__dirname, 'client', 'index.js')],
+    entry: [path.join(__dirname, 'src', 'client', 'index.js')],
     output: {
       filename: 'client.js',
       publicPath: '/assets/',

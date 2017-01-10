@@ -1,11 +1,16 @@
 import Inferno from 'inferno';
+import classnames from 'classnames';
 import styles from './styles.css';
 
-const Container = ({ children }) => (
-  <div className={styles.container}>
+const Container = ({ children, className, fluid }) => (
+  <div className={classnames(styles.container, className, { [styles.fluid]: fluid })}>
     {children}
   </div>
 );
+
+Container.defaultProps = {
+  fluid: true,
+};
 
 const Row = ({ children }) => (
   <div className={styles.row}>
@@ -14,7 +19,7 @@ const Row = ({ children }) => (
 );
 
 const Col = ({ children }) => (
-  <div classNamed={styles.col}>
+  <div className={styles.col}>
     {children}
   </div>
 );

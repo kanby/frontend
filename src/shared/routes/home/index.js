@@ -1,7 +1,7 @@
 import Inferno from 'inferno';
 
-const IndexPage = () => (
+const HomePage = () => (
   <span>Home</span>
 );
 
-export default IndexPage;
+export default HomePage;

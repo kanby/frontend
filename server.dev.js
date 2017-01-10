@@ -54,7 +54,7 @@ server.use(hotMiddleware);
 server.listen(serverPort);
 
 const serverCompiler = webpack(Object.assign({}, serverConfig, {
-  entry: path.join(__dirname, 'server', 'server.js'),
+  entry: path.join(__dirname, 'src', 'server', 'server.js'),
   output: Object.assign({}, serverConfig.output, { libraryTarget: 'commonjs2' }),
 }));
 
