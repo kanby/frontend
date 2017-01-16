@@ -1,0 +1,11 @@
+[include]
+
+[ignore]
+.*/node_modules/.*/test/.*\.json$
+.*/node_modules/stylelint/.*$
+
+[options]
+suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore
+
+[libs]
+flow-typed/

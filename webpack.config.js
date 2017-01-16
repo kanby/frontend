@@ -32,7 +32,7 @@ module.exports = [
           loader: 'babel-loader',
           query: {
             presets: ['node7'],
-            plugins: ['inferno'],
+            plugins: ['inferno', 'transform-flow-strip-types'],
           },
         },
         {
@@ -65,7 +65,7 @@ module.exports = [
           loader: 'babel-loader',
           query: {
             presets: ['latest'],
-            plugins: ['inferno'],
+            plugins: ['inferno', 'transform-flow-strip-types'],
           },
         },
         {
