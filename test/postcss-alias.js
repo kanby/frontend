@@ -6,7 +6,9 @@ const matchValue = /^(.+?|\([\s\S]+?\))\s+from\s+("[^"]*"|'[^']*'|[\w-]+)$/;
 const matchCompose = /^(.+?|\([\s\S]+?\))\s+from\s+("[^"]*"|'[^']*'|[\w-]+)$/;
 
 const resolvePath = (aliases, reqPath) => {
-  const pair = Object.entries(aliases).find(([alias]) => reqPath.startsWith(alias));
+  const pair = Object.keys(aliases)
+    .map(k => [k, aliases[k]])
+    .find(([alias]) => reqPath.startsWith(alias));
 
   if (pair) {
     return path.join(pair[1], reqPath.replace(pair[0], ''));
