@@ -1,6 +1,6 @@
 # kanby/frontend
 
-[![Build Status](https://circleci.com/gh/kanby/frontend.png)](https://circleci.com/gh/kanby/frontend)
+[![Build Status](https://circleci.com/gh/kanby/frontend.svg?style=shield)](https://circleci.com/gh/kanby/frontend)
 
 ### Running the application
 
