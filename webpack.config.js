@@ -5,9 +5,6 @@ const nodeExternals = require('webpack-node-externals');
 
 const conf = {
   context: __dirname,
-  output: {
-    path: path.join(__dirname, 'dist'),
-  },
   resolve: {
     alias: {
       components: path.resolve(__dirname, 'src', 'shared', 'components'),
@@ -26,6 +23,7 @@ module.exports = [
     entry: path.join(__dirname, 'src', 'server', 'index.js'),
     output: {
       filename: 'server.js',
+      path: path.join(__dirname, 'dist'),
     },
     module: {
       rules: [
@@ -46,6 +44,9 @@ module.exports = [
         },
       ],
     },
+    node: {
+      __dirname: true,
+    },
     externals: [nodeExternals()],
     target: 'node',
   }),
@@ -55,6 +56,7 @@ module.exports = [
     output: {
       filename: 'client.js',
       publicPath: '/assets/',
+      path: path.join(__dirname, 'dist', 'assets'),
     },
     module: {
       rules: [
