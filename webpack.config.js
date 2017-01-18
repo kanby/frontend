@@ -17,7 +17,7 @@ const conf = {
   devtool: 'source-map',
 };
 
-module.exports = [
+const configs = [
   merge(conf, {
     name: 'server',
     entry: path.join(__dirname, 'src', 'server', 'index.js'),
@@ -81,9 +81,15 @@ module.exports = [
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
-          NODE_ENV: JSON.stringify('production'),
+          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         },
       }),
     ],
   }),
 ];
+
+if (process.env.NODE_ENV === 'production') {
+  configs[1].plugins.push(new webpack.optimize.UglifyJsPlugin());
+}
+
+module.exports = configs;

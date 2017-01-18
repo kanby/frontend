@@ -1,7 +1,7 @@
 import Inferno from 'inferno';
-import { renderToString } from 'inferno-server';
 import { RouterContext, match } from 'inferno-router';
 import compose from 'koa-compose';
+import createMemoryHistory from 'history/createMemoryHistory';
 
 const initRouting = routes => (
   (ctx, next) => {
@@ -31,7 +31,12 @@ const renderBody = (ctx, next) => {
   const { renderProps } = ctx.state.infernoRouter;
 
   if (renderProps) {
-    ctx.state.infernoRouter.body = renderToString(<RouterContext {...renderProps} />);
+    const props = {
+      history: createMemoryHistory(),
+      ...renderProps,
+    };
+
+    ctx.state.infernoRouter.body = <RouterContext {...props} />;
   }
 
   return next();

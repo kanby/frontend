@@ -407,12 +407,12 @@ babel-plugin-check-es2015-constants@^6.3.13:
   dependencies:
     babel-runtime "^6.0.0"
 
-babel-plugin-inferno@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-inferno/-/babel-plugin-inferno-1.5.0.tgz#9beb329562ca5312a6b444b998d17e4bac842f79"
+babel-plugin-inferno@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-inferno/-/babel-plugin-inferno-1.6.0.tgz#7224265f1a1cfdc5bc5e2df1cf480dccb9cc7896"
   dependencies:
     babel-plugin-syntax-jsx "^6.18.0"
-    inferno-vnode-flags "^1.0.7"
+    inferno-vnode-flags "^1"
 
 babel-plugin-syntax-async-functions@^6.13.0, babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
@@ -1906,9 +1906,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-airbnb-base@^11.0.0:
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-11.0.0.tgz#a3eddc1e49fd6492509d582340fd6f58785623bd"
+eslint-config-airbnb-base@^11.0.1:
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-11.0.1.tgz#5401dba284c6b7d7c8fb1c2ee19aba018f9dfa21"
 
 eslint-config-xo@^0.17.0:
   version "0.17.0"
@@ -1989,9 +1989,9 @@ eslint-plugin-import@^2.0.0, eslint-plugin-import@^2.2.0:
     minimatch "^3.0.3"
     pkg-up "^1.0.0"
 
-eslint-plugin-inferno@^6.8.0:
-  version "6.8.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-inferno/-/eslint-plugin-inferno-6.8.0.tgz#c74fa9625fbc6d3434802d8430837f57ba31a525"
+eslint-plugin-inferno@^6.9.0:
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-inferno/-/eslint-plugin-inferno-6.9.0.tgz#eb36a33e69d90b0bf7dcc3eec51eb622452be690"
   dependencies:
     array.prototype.find "^2.0.1"
     doctrine "^1.2.2"
@@ -2020,9 +2020,9 @@ eslint-plugin-unicorn@^1.0.0:
     lodash.upperfirst "^4.2.0"
     req-all "^0.1.0"
 
-eslint@^3.13.0, eslint@^3.6.0:
-  version "3.13.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-3.13.0.tgz#636925fd163c9babe2e8be7ae43caf518d469577"
+eslint@^3.13.1, eslint@^3.6.0:
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-3.13.1.tgz#564d2646b5efded85df96985332edd91a23bff25"
   dependencies:
     babel-code-frame "^6.16.0"
     chalk "^1.1.3"
@@ -2241,9 +2241,9 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-bin@^0.37.4:
-  version "0.37.4"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.37.4.tgz#3d8da2ef746e80e730d166e09040f4198969b76b"
+flow-bin@^0.38.0:
+  version "0.38.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.38.0.tgz#3ae096d401c969cc8b5798253fb82381e2d0237a"
 
 flow-typed@^2.0.0:
   version "2.0.0"
@@ -2418,7 +2418,7 @@ glob-to-regexp@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/glob-to-regexp/-/glob-to-regexp-0.1.0.tgz#e0369d426578fd456d47dc23b09de05c1da9ea5d"
 
-glob@7.0.5, glob@^7.0.3:
+glob@7.0.5:
   version "7.0.5"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.0.5.tgz#b4202a69099bbb4d292a7c1b95b6682b67ebdc95"
   dependencies:
@@ -2429,7 +2429,7 @@ glob@7.0.5, glob@^7.0.3:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^7.0.0, glob@^7.0.5, glob@^7.0.6:
+glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.0.6:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.1.tgz#805211df04faaf1c63a3600306cdf5ade50b2ec8"
   dependencies:
@@ -2549,9 +2549,9 @@ hawk@~3.1.3:
     hoek "2.x.x"
     sntp "1.x.x"
 
-history@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/history/-/history-4.5.0.tgz#7313388109333bf5796fff7407cee1850e8c5061"
+history@^4.5.1:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/history/-/history-4.5.1.tgz#44935a51021e3b8e67ebac267a35675732aba569"
   dependencies:
     invariant "^2.2.1"
     loose-envify "^1.2.0"
@@ -2665,54 +2665,54 @@ indexof@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/indexof/-/indexof-0.0.1.tgz#82dc336d232b9062179d05ab3293a66059fd435d"
 
-inferno-component@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/inferno-component/-/inferno-component-1.1.1.tgz#33ea8c12f388f227795a10d6f1a517a353ecee7e"
+inferno-component@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inferno-component/-/inferno-component-1.2.1.tgz#e250421373912ccd846378857fc028973d466c32"
   dependencies:
-    inferno "1.1.1"
+    inferno "1.2.1"
 
-inferno-create-element@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/inferno-create-element/-/inferno-create-element-1.1.1.tgz#f569aeb78dbaabe738fabb0254b20ff9ee5c4678"
+inferno-create-element@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inferno-create-element/-/inferno-create-element-1.2.1.tgz#c3dce73fab500527ed015c85a780435b475dc692"
   dependencies:
-    inferno "1.1.1"
+    inferno "1.2.1"
 
-inferno-redux@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/inferno-redux/-/inferno-redux-1.1.1.tgz#1be11b697436b320f6dd859040d169c63c30e245"
+inferno-redux@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inferno-redux/-/inferno-redux-1.2.1.tgz#426a4ed231e40c818a2035ab55805e06a7bd28ad"
   dependencies:
-    inferno "1.1.1"
-    inferno-component "1.1.1"
-    inferno-create-element "1.1.1"
+    inferno "1.2.1"
+    inferno-component "1.2.1"
+    inferno-create-element "1.2.1"
     redux "*"
 
-inferno-router@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/inferno-router/-/inferno-router-1.1.1.tgz#974e2ee13d2ba01e0011576af0f4ec1e07a1e947"
+inferno-router@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inferno-router/-/inferno-router-1.2.1.tgz#5e2fd393c1b44ecfeff1b74014f2fc24021641cc"
   dependencies:
-    inferno "1.1.1"
-    inferno-component "1.1.1"
-    inferno-create-element "1.1.1"
+    inferno "1.2.1"
+    inferno-component "1.2.1"
+    inferno-create-element "1.2.1"
 
-inferno-server@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/inferno-server/-/inferno-server-1.1.1.tgz#4e2a1512ae1b368494b4e1cf1e699a4676a00161"
+inferno-server@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inferno-server/-/inferno-server-1.2.1.tgz#0d0576a4a946466cde5369d04280d21e5e5c8032"
   dependencies:
-    inferno "1.1.1"
+    inferno "1.2.1"
 
-inferno-vnode-flags@^1.0.7:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/inferno-vnode-flags/-/inferno-vnode-flags-1.1.0.tgz#bbe7368730dd2e3f3681d7162fbf11e3de0b7c77"
+inferno-vnode-flags@^1:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/inferno-vnode-flags/-/inferno-vnode-flags-1.2.0.tgz#c7d38efdb3e002002789cee16d81ab7aca1da1fe"
   dependencies:
-    inferno "1.1.0"
+    inferno "1.2.0"
 
-inferno@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/inferno/-/inferno-1.1.0.tgz#713c9c9e60c8a1d8e2f784ed718ba98781005f8a"
+inferno@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/inferno/-/inferno-1.2.0.tgz#0d1309c361b1e1fa773798d05504be31e4ca395e"
 
-inferno@1.1.1, inferno@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/inferno/-/inferno-1.1.1.tgz#4432a162435fb5fa855cea5b905206fb8b011ee2"
+inferno@1.2.1, inferno@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inferno/-/inferno-1.2.1.tgz#154799226298deca6cd561c8da88a5e5f30a2369"
 
 inflight@^1.0.4:
   version "1.0.6"
@@ -3154,9 +3154,9 @@ koa-compose@^3.0.0, koa-compose@next:
   dependencies:
     any-promise "^1.1.0"
 
-"koa-connect@git://github.com/vkurchatkin/koa-connect#vNext":
-  version "2.0.0-alpha.1"
-  resolved "git://github.com/vkurchatkin/koa-connect#c1f7bf4ded5b0ef4f4cd6ceb823b49997aa9e1c4"
+koa-connect@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/koa-connect/-/koa-connect-2.0.0.tgz#b69da158fe5df04a59f5fce57b147343f6ff652e"
 
 koa-convert@^1.2.0:
   version "1.2.0"
@@ -3668,9 +3668,9 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   dependencies:
     minimist "0.0.8"
 
-mocha-junit-reporter@^1.12.2:
-  version "1.12.2"
-  resolved "https://registry.yarnpkg.com/mocha-junit-reporter/-/mocha-junit-reporter-1.12.2.tgz#3f29f0159843b5b9b5ae68989ec7272cbf2069a4"
+mocha-junit-reporter@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/mocha-junit-reporter/-/mocha-junit-reporter-1.13.0.tgz#030db8c530b244667253b03861d4cd336f7e56c8"
   dependencies:
     debug "^2.2.0"
     md5 "^2.1.0"
@@ -4384,37 +4384,37 @@ postcss-less@^0.14.0:
   dependencies:
     postcss "^5.0.21"
 
-postcss-load-config@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-load-config/-/postcss-load-config-1.0.0.tgz#1399f60dcd6bd9c3124b2eb22960f77f9dc08b3d"
+postcss-load-config@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/postcss-load-config/-/postcss-load-config-1.1.0.tgz#1c3c217608642448c03bebf3c32b1b28985293f9"
   dependencies:
     cosmiconfig "^2.1.0"
     object-assign "^4.1.0"
-    postcss-load-options "^1.0.2"
-    postcss-load-plugins "^2.0.0"
+    postcss-load-options "^1.1.0"
+    postcss-load-plugins "^2.2.0"
 
-postcss-load-options@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/postcss-load-options/-/postcss-load-options-1.0.2.tgz#b99eb5759a588f4b2dd8b6471c6985f72060e7b0"
+postcss-load-options@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/postcss-load-options/-/postcss-load-options-1.1.0.tgz#e39215d154a19f69f9cb6052bffad4a82f09f354"
   dependencies:
     cosmiconfig "^2.1.0"
     object-assign "^4.1.0"
 
-postcss-load-plugins@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/postcss-load-plugins/-/postcss-load-plugins-2.1.0.tgz#dbb6f46271df8d16e19b5d691ebda5175ce424a0"
+postcss-load-plugins@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/postcss-load-plugins/-/postcss-load-plugins-2.2.0.tgz#84ef9cf36e637810ac5265e03f6d4c48ead83314"
   dependencies:
     cosmiconfig "^2.1.1"
     object-assign "^4.1.0"
 
-postcss-loader@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/postcss-loader/-/postcss-loader-1.2.1.tgz#8809ab184a9f903a01f660385f2e296ff563d22c"
+postcss-loader@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/postcss-loader/-/postcss-loader-1.2.2.tgz#bbf4e19a8cde85597e0c9bfd96015fe775a157ac"
   dependencies:
     loader-utils "^0.2.16"
     object-assign "^4.1.0"
-    postcss "^5.2.6"
-    postcss-load-config "^1.0.0"
+    postcss "^5.2.9"
+    postcss-load-config "^1.1.0"
 
 postcss-media-minmax@^2.1.0:
   version "2.1.2"
@@ -4674,9 +4674,9 @@ postcss-zindex@^2.0.1:
     postcss "^5.0.4"
     uniqs "^2.0.0"
 
-postcss@^5.0.0, postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0.14, postcss@^5.0.16, postcss@^5.0.18, postcss@^5.0.19, postcss@^5.0.2, postcss@^5.0.20, postcss@^5.0.21, postcss@^5.0.3, postcss@^5.0.4, postcss@^5.0.5, postcss@^5.0.6, postcss@^5.0.8, postcss@^5.1.1, postcss@^5.2.0, postcss@^5.2.4, postcss@^5.2.5, postcss@^5.2.6, postcss@^5.2.8:
-  version "5.2.8"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-5.2.8.tgz#05720c49df23c79bda51fd01daeb1e9222e94390"
+postcss@^5.0.0, postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0.14, postcss@^5.0.16, postcss@^5.0.18, postcss@^5.0.19, postcss@^5.0.2, postcss@^5.0.20, postcss@^5.0.21, postcss@^5.0.3, postcss@^5.0.4, postcss@^5.0.5, postcss@^5.0.6, postcss@^5.0.8, postcss@^5.1.1, postcss@^5.2.0, postcss@^5.2.10, postcss@^5.2.4, postcss@^5.2.5, postcss@^5.2.8, postcss@^5.2.9:
+  version "5.2.10"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-5.2.10.tgz#b58b64e04f66f838b7bc7cb41f7dac168568a945"
   dependencies:
     chalk "^1.1.3"
     js-base64 "^2.1.9"
@@ -5493,7 +5493,7 @@ synesthesia@^1.0.1:
   dependencies:
     css-color-names "0.0.3"
 
-table@3.7.8:
+table@3.7.8, table@^3.7.8:
   version "3.7.8"
   resolved "https://registry.yarnpkg.com/table/-/table-3.7.8.tgz#b424433ef596851922b2fd77224a69a1951618eb"
   dependencies:
@@ -5505,17 +5505,6 @@ table@3.7.8:
     strip-ansi "^3.0.0"
     tv4 "^1.2.7"
     xregexp "^3.0.0"
-
-table@^3.7.8:
-  version "3.8.3"
-  resolved "https://registry.yarnpkg.com/table/-/table-3.8.3.tgz#2bbc542f0fda9861a755d3947fefd8b3f513855f"
-  dependencies:
-    ajv "^4.7.0"
-    ajv-keywords "^1.0.0"
-    chalk "^1.1.1"
-    lodash "^4.0.0"
-    slice-ansi "0.0.4"
-    string-width "^2.0.0"
 
 table@^4.0.1:
   version "4.0.1"
@@ -5834,9 +5823,9 @@ webpack-hot-middleware@^2.15.0:
     querystring "^0.2.0"
     strip-ansi "^3.0.0"
 
-webpack-merge@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-2.3.1.tgz#152ff773c5fbc6e398015fdf75835de343c33777"
+webpack-merge@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-2.4.0.tgz#4c518d471632c29ae22e83687c2f42a9cd5f35ea"
   dependencies:
     lodash "^4.17.4"
 
