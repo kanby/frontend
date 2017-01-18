@@ -3,11 +3,11 @@ const webpackConfig = require('../webpack.config.js');
 const aliasPlugin = require('./postcss-alias');
 
 require('babel-core/register')({
-  presets: ['latest'],
+  presets: ['node7'],
   plugins: [
-    'babel-plugin-webpack-alias',
-    'babel-plugin-inferno',
-    'babel-plugin-transform-flow-strip-types',
+    'webpack-alias',
+    'inferno',
+    'transform-flow-strip-types',
   ],
 });
 
