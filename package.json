@@ -3,12 +3,13 @@
     "build": "webpack --progress",
     "dev": "node server.dev.js",
     "lint": "yarn lint:js && yarn lint:css",
-    "lint:js": "xo",
     "lint:css": "stylelint ./**/*.css",
     "lint:fix": "xo --fix",
+    "lint:js": "xo",
     "start": "node dist/server.js",
     "test": "mocha",
-    "test:watch": "mocha --watch"
+    "test:watch": "mocha --watch",
+    "typecheck": "flow"
   },
   "dependencies": {
     "chalk": "^1.1.3",
