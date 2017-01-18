@@ -1,3 +1,13 @@
+/*
+  This is a temporary place for this plugin to live. I'll eventually extract
+  it, test it thoroughly and release it as a npm package.
+
+  Its main purpose is to provide a postcss plugin to support aliasing with the
+  same API as webpack. I found the need for it when using
+  css-modules-require-hook so I didn't have to compile my tests. I could just
+  pass my webpack aliases object and it would resolve them correctly.
+*/
+
 const path = require('path');
 const postcss = require('postcss');
 
@@ -17,7 +27,7 @@ const resolvePath = (aliases, reqPath) => {
   return reqPath;
 };
 
-const plugin = postcss.plugin('postcss-alises', opts => (
+const plugin = postcss.plugin('postcss-aliases', opts => (
   (css) => {
     const aliases = opts || {};
 
