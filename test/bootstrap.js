@@ -6,7 +6,8 @@ require('babel-core/register')({
   presets: ['latest'],
   plugins: [
     'babel-plugin-webpack-alias',
-    'inferno',
+    'babel-plugin-inferno',
+    'babel-plugin-transform-flow-strip-types',
   ],
 });
 
