@@ -20,7 +20,7 @@ const routes = (
 
 const baseContext = { state: {} };
 
-describe('inferno-router-koa', () => {
+describe('server:middleware/inferno-router-koa', () => {
   describe('initRouting', () => {
     it('takes an inferno-router routes object and returns a middleware', () => {
       const middleware = initRouting(routes);
@@ -103,8 +103,12 @@ describe('inferno-router-koa', () => {
 
       renderBody(ctx, next);
 
+      expect(ctx.state.infernoRouter.body).to.be.defined;
+
       expect(renderToString(ctx.state.infernoRouter.body)).to.deep.equal(renderToString(
-        <RouterContext {...renderProps} />,
+        <App>
+          <Page2 />
+        </App>,
       ));
 
       expect(next).to.have.been.called;
