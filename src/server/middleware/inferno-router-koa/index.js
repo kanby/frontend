@@ -13,6 +13,7 @@ const initRouting = routes => (
 
 const getRenderProps = (ctx, next) => {
   const state = ctx.state.infernoRouter;
+  state.history = createMemoryHistory();
   state.renderProps = match(state.routes, ctx.url);
   return next();
 };
@@ -28,11 +29,11 @@ const handleRedirects = (ctx, next) => {
 };
 
 const renderBody = (ctx, next) => {
-  const { renderProps } = ctx.state.infernoRouter;
+  const { history, renderProps } = ctx.state.infernoRouter;
 
   if (renderProps) {
     const props = {
-      history: createMemoryHistory(),
+      history,
       ...renderProps,
     };
 

@@ -28,6 +28,7 @@
     "koa-static": "next",
     "normalize.css": "^5.0.0",
     "postcss-cssnext": "^2.9.0",
+    "react-router-redux": "^4.0.7",
     "redux": "^3.6.0"
   },
   "devDependencies": {
