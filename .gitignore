@@ -1,3 +1,8 @@
 node_modules/
 dist/
 npm-debug.log
+terraform.tfvars
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+terraform/aws.credentials

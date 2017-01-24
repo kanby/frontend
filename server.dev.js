@@ -23,7 +23,7 @@ const config = Object.assign({}, clientConfig, {
   plugins: clientConfig.plugins.concat([
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
   ]),
 });
 
