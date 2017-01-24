@@ -7,8 +7,10 @@ const conf = {
   context: __dirname,
   resolve: {
     alias: {
+      client: path.resolve(__dirname, 'src', 'client'),
       components: path.resolve(__dirname, 'src', 'shared', 'components'),
       compositions: path.resolve(__dirname, 'src', 'shared', 'compositions'),
+      server: path.resolve(__dirname, 'src', 'server'),
       shared: path.resolve(__dirname, 'src', 'shared'),
       test: path.resolve(__dirname, 'test'),
     },

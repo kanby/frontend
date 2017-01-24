@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import Inferno from 'inferno';
-import infernoRouter, { match, Route, IndexRoute, RouterContext } from 'inferno-router';
+import infernoRouter, { match, Route, IndexRoute } from 'inferno-router';
 import { renderToString } from 'inferno-server';
 import sinon from 'sinon';
 import { createMockComponent } from 'test/utils';

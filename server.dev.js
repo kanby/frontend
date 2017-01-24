@@ -10,8 +10,8 @@ const webpackConfig = require('./webpack.config.js');
 const connect = require('koa-connect');
 const mount = require('koa-mount');
 
-const clientConfig = webpackConfig.find(c => c.name === 'client');
-const serverConfig = webpackConfig.find(c => c.name === 'server');
+const clientConfig = webpackConfig.find((c) => c.name === 'client');
+const serverConfig = webpackConfig.find((c) => c.name === 'server');
 
 const server = new Koa();
 const serverPort = 3000;

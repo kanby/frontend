@@ -17,7 +17,7 @@ const matchCompose = /^(.+?|\([\s\S]+?\))\s+from\s+("[^"]*"|'[^']*'|[\w-]+)$/;
 
 const resolvePath = (aliases, reqPath) => {
   const pair = Object.keys(aliases)
-    .map(k => [k, aliases[k]])
+    .map((k) => [k, aliases[k]])
     .find(([alias]) => reqPath.startsWith(alias));
 
   if (pair) {
@@ -27,7 +27,7 @@ const resolvePath = (aliases, reqPath) => {
   return reqPath;
 };
 
-const plugin = postcss.plugin('postcss-aliases', opts => (
+const plugin = postcss.plugin('postcss-aliases', (opts) => (
   (css) => {
     const aliases = opts || {};
 

@@ -3,7 +3,7 @@ import { RouterContext, match } from 'inferno-router';
 import compose from 'koa-compose';
 import createMemoryHistory from 'history/createMemoryHistory';
 
-const initRouting = routes => (
+const initRouting = (routes) => (
   (ctx, next) => {
     ctx.state.infernoRouter = {};
     ctx.state.infernoRouter.routes = routes;
@@ -43,7 +43,7 @@ const renderBody = (ctx, next) => {
   return next();
 };
 
-const infernoRouter = routes => (
+const infernoRouter = (routes) => (
   compose([
     initRouting(routes),
     getRenderProps,

@@ -15,7 +15,7 @@ const wrapBody = (ctx, next) => {
   return next();
 };
 
-const infernoRouterRedux = routes => (
+const infernoRouterRedux = (routes) => (
   compose([
     initRouting(routes),
     getRenderProps,

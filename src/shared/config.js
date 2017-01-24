@@ -1,5 +1,8 @@
-const config = new Map();
+import createConfig from 'shared/util/config';
+import { isString } from 'shared/util/validators';
 
-config.set('assets/directory', 'assets');
+const config = createConfig(true);
+
+config.set('assets/directory', 'assets', isString);
 
 export default config;
