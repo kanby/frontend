@@ -9,7 +9,8 @@
     "start": "node dist/server.js",
     "test": "mocha",
     "test:watch": "mocha --watch",
-    "typecheck": "flow"
+    "typecheck": "flow",
+    "typecheck:install": "flow-typed install"
   },
   "dependencies": {
     "chalk": "^1.1.3",
@@ -21,11 +22,11 @@
     "inferno-redux": "^1.2.2",
     "inferno-router": "^1.2.2",
     "inferno-server": "^1.2.2",
-    "koa": "next",
-    "koa-compose": "next",
-    "koa-mount": "next",
+    "koa": "2.0.0-alpha.7",
+    "koa-compose": "^3.2.1",
+    "koa-mount": "^2.0.0",
     "koa-router": "^7.1.0",
-    "koa-static": "next",
+    "koa-static": "^3.0.0",
     "lodash": "^4.17.4",
     "normalize.css": "^5.0.0",
     "postcss-cssnext": "^2.9.0",
