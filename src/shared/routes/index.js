@@ -1,7 +1,7 @@
 import Inferno from 'inferno';
 import { Route, IndexRoute } from 'inferno-router';
 
-import App from 'components/app';
+import App from 'compositions/app';
 import HomePage from './home';
 import BoardsPage from './boards';
 

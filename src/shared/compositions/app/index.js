@@ -2,7 +2,11 @@ import Inferno from 'inferno';
 import Navbar from 'compositions/navbar';
 import 'shared/styles/global.css';
 
-const App = ({ children }) => (
+type AppProps = {
+  children: any
+}
+
+const App = ({ children }: AppProps) => (
   <div>
     <Navbar />
     <main role="main">
