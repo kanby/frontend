@@ -3,7 +3,7 @@
     "build": "webpack --progress",
     "dev": "node server.dev.js",
     "lint": "yarn lint:js && yarn lint:css",
-    "lint:css": "stylelint ./**/*.css",
+    "lint:css": "stylelint ./src/**/*.css",
     "lint:fix": "xo --fix",
     "lint:js": "xo",
     "start": "node dist/server.js",
@@ -82,6 +82,9 @@
       "airbnb-base",
       "plugin:inferno/recommended",
       "plugin:flowtype/recommended"
+    ],
+    "ignores": [
+      "flow-typed/**"
     ],
     "plugins": [
       "inferno",
