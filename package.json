@@ -51,6 +51,7 @@
     "eslint-import-resolver-webpack": "^0.8.1",
     "eslint-plugin-flowtype": "^2.30.0",
     "eslint-plugin-import": "^2.2.0",
+    "extract-text-webpack-plugin": "2.0.0-beta",
     "flow-bin": "^0.38.0",
     "flow-typed": "^2.0.0",
     "koa-connect": "^2.0.0",

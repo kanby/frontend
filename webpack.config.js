@@ -2,6 +2,7 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const conf = {
   context: __dirname,
@@ -73,7 +74,8 @@ const configs = [
         {
           test: /\.css$/,
           use: [
-            { loader: 'style-loader' },
+            // ExtractTextPlugin injected here when NODE_ENV === 'production'
+            // style-loader injected here when NODE_ENV !== 'production'
             { loader: 'css-loader', query: { importLoaders: 1 } },
             { loader: 'postcss-loader' },
           ],
@@ -90,8 +92,15 @@ const configs = [
   }),
 ];
 
+const clientCssLoader = configs[1].module.rules.find((l) => l.test.test('.css'));
+
 if (process.env.NODE_ENV === 'production') {
   configs[1].plugins.push(new webpack.optimize.UglifyJsPlugin());
+  configs[1].plugins.push(new ExtractTextPlugin('styles-[contenthash:5].css'));
+  clientCssLoader.loader = ExtractTextPlugin.extract(clientCssLoader.use.concat([]));
+  delete clientCssLoader.use;
+} else {
+  clientCssLoader.use.unshift({ loader: 'style-loader' });
 }
 
 module.exports = configs;

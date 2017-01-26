@@ -23,7 +23,7 @@ const config = Object.assign({}, clientConfig, {
   plugins: clientConfig.plugins.concat([
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
   ]),
 });
 
@@ -62,10 +62,13 @@ const serverFile = path.join(serverConfig.output.path, serverConfig.output.filen
 
 let serverMiddleware;
 
-serverCompiler.watch({}, (err) => {
-  if (err) {
-    throw (err);
-  }
+const handleError = (err) => console.log(chalk.white(chalk.red('COMPILER ERROR:'), err));
+const handleWarning = (warning) => console.log(chalk.white(chalk.red('COMPILER WARNING:'), warning));
+
+serverCompiler.watch({}, (err, stats) => {
+  if (err) throw (err);
+  if (stats.hasErrors()) return stats.toJson().errors.forEach(handleError);
+  if (stats.hasWarnings()) stats.toJson().warnings.forEach(handleWarning);
 
   const i = server.middleware.indexOf(serverMiddleware);
   const exists = (i !== -1);
@@ -84,8 +87,8 @@ serverCompiler.watch({}, (err) => {
   server.use(serverMiddleware);
 
   if (exists) {
-    console.log(chalk.white(chalk.yellow('INFO:'), 'Server reloaded.'));
-  } else {
-    console.log(chalk.white(chalk.yellow('INFO:'), 'Server loaded.'));
+    return console.log(chalk.white(chalk.yellow('INFO:'), 'Server reloaded.'));
   }
+
+  return console.log(chalk.white(chalk.yellow('INFO:'), 'Server loaded.'));
 });
