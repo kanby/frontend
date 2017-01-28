@@ -5,15 +5,16 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'inferno-redux';
 import createStore from 'shared/create-store';
+import config from 'client/config';
 
 const browserHistory = createBrowserHistory();
 const initialState = {};
 const store = createStore(browserHistory, initialState);
 syncHistoryWithStore(browserHistory, store);
 
-if (process.env.NODE_ENV === 'development') {
+if (config.get('environment') === 'development') {
   store.subscribe(() => {
-    console.log(store.getState());
+    console.log(store.getState()); // eslint-disable-line no-console
   });
 }
 

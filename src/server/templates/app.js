@@ -11,12 +11,6 @@ function stylesheet(env: string, manifest: Object) {
   return null;
 }
 
-function asset(manifest, key) {
-  if (config.get('environment') !== 'development') {
-    return <link rel="stylesheet" type="text/css" href={manifest['client.css']} />;
-  }
-}
-
 type AppTemplateProps = {
   children: any,
   locale: string,
