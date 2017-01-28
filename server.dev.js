@@ -17,11 +17,10 @@ const server = new Koa();
 const serverPort = 3000;
 
 const config = Object.assign({}, clientConfig, {
-  entry: [
-    'webpack-hot-middleware/client',
-  ].concat(clientConfig.entry),
+  entry: Object.assign({}, clientConfig.entry, {
+    webpackHot: 'webpack-hot-middleware/client',
+  }),
   plugins: clientConfig.plugins.concat([
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
   ]),
@@ -54,11 +53,11 @@ server.use(hotMiddleware);
 server.listen(serverPort);
 
 const serverCompiler = webpack(Object.assign({}, serverConfig, {
-  entry: path.join(__dirname, 'src', 'server', 'server.js'),
+  entry: { server: path.join(__dirname, 'src', 'server', 'server.js') },
   output: Object.assign({}, serverConfig.output, { libraryTarget: 'commonjs2' }),
 }));
 
-const serverFile = path.join(serverConfig.output.path, serverConfig.output.filename);
+const serverFile = path.join(serverConfig.output.path, serverConfig.output.filename.replace('[name]', 'server'));
 
 let serverMiddleware;
 

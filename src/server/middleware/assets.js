@@ -1,3 +1,5 @@
+/* @flow */
+
 import koaStatic from 'koa-static';
 import mount from 'koa-mount';
 import path from 'path';

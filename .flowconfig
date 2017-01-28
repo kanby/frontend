@@ -1,11 +1,15 @@
-[include]
-
 [ignore]
-.*/node_modules/.*/test/.*\.json$
 .*/node_modules/stylelint/.*$
 
-[options]
-suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore
+[include]
 
 [libs]
 flow-typed/
+
+[options]
+suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore
+module.name_mapper='^client/\(.*\)$' -> '<PROJECT_ROOT>/src/client/\1'
+module.name_mapper='^shared/\(.*\)$' -> '<PROJECT_ROOT>/src/shared/\1'
+module.name_mapper='^server/\(.*\)$' -> '<PROJECT_ROOT>/src/server/\1'
+module.name_mapper='^components/\(.*\)$' -> '<PROJECT_ROOT>/src/shared/components/\1'
+module.name_mapper='^compositions/\(.*\)$' -> '<PROJECT_ROOT>/src/shared/compositions/\1'

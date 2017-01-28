@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { isString, validator } from './index';
+import { contains, isString, validator } from './index';
 
 describe('validators/is-string', () => {
   it('returns true if a string is passed', () => {
@@ -10,6 +10,16 @@ describe('validators/is-string', () => {
     [12, false, new Date(), new Set(), new Map(), null, undefined].forEach((val) => {
       expect(isString(val)).to.be.false;
     });
+  });
+});
+
+describe('validators/contains', () => {
+  it('returns true if value in array', () => {
+    expect(contains([1, 2], 2)).to.be.true;
+  });
+
+  it('returns false if value not in array', () => {
+    expect(contains([1, 2], 3)).to.be.false;
   });
 });
 

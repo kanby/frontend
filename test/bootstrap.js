@@ -5,9 +5,10 @@ const aliasPlugin = require('./postcss-alias');
 require('babel-core/register')({
   presets: ['node7'],
   plugins: [
-    'webpack-alias',
+    'async-to-promises',
     'inferno',
     'transform-flow-strip-types',
+    'webpack-alias',
   ],
 });
 

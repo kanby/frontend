@@ -1,6 +1,13 @@
+/* @flow */
+
 import curry from 'lodash/fp/curry';
 import isString from 'lodash/fp/isString';
 
-const validator = curry((message: string, valid: boolean) => valid || message);
+const validator = curry((message: string, valid: boolean): boolean | string => valid || message);
 
-export { isString, validator };
+const contains = curry((values: Array<any>, value: any): boolean => {
+  if (values.indexOf(value) !== -1) return true;
+  return false;
+});
+
+export { isString, validator, contains };

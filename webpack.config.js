@@ -3,6 +3,9 @@ const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+
+const production = process.env.NODE_ENV === 'production';
 
 const conf = {
   context: __dirname,
@@ -17,15 +20,19 @@ const conf = {
     },
   },
   plugins: [],
-  devtool: 'source-map',
+  devtool: production ? 'eval' : 'source-map',
 };
+
+const publicPath = '/assets/';
 
 const configs = [
   merge(conf, {
     name: 'server',
-    entry: path.join(__dirname, 'src', 'server', 'index.js'),
+    entry: {
+      server: path.join(__dirname, 'src', 'server', 'index.js'),
+    },
     output: {
-      filename: 'server.js',
+      filename: '[name].js',
       path: path.join(__dirname, 'dist'),
     },
     module: {
@@ -35,7 +42,7 @@ const configs = [
           loader: 'babel-loader',
           query: {
             presets: ['node7'],
-            plugins: ['inferno', 'transform-flow-strip-types'],
+            plugins: ['async-to-promises', 'inferno', 'transform-flow-strip-types'],
           },
         },
         {
@@ -55,10 +62,12 @@ const configs = [
   }),
   merge(conf, {
     name: 'client',
-    entry: [path.join(__dirname, 'src', 'client', 'index.js')],
+    entry: {
+      client: path.join(__dirname, 'src', 'client', 'index.js'),
+    },
     output: {
-      filename: 'client.js',
-      publicPath: '/assets/',
+      filename: (production ? '[name]-[hash:5].js' : '[name].js'),
+      publicPath,
       path: path.join(__dirname, 'dist', 'assets'),
     },
     module: {
@@ -68,7 +77,7 @@ const configs = [
           loader: 'babel-loader',
           query: {
             presets: ['latest'],
-            plugins: ['inferno', 'transform-flow-strip-types'],
+            plugins: ['async-to-promises', 'inferno', 'transform-flow-strip-types'],
           },
         },
         {
@@ -76,17 +85,23 @@ const configs = [
           use: [
             // ExtractTextPlugin injected here when NODE_ENV === 'production'
             // style-loader injected here when NODE_ENV !== 'production'
-            { loader: 'css-loader', query: { importLoaders: 1 } },
+            { loader: 'css-loader', query: { importLoaders: 1, sourceMap: !production, minimize: production } },
             { loader: 'postcss-loader' },
           ],
         },
       ],
     },
     plugins: [
+      new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         },
+      }),
+      new ManifestPlugin({
+        fileName: '../manifest.json',
+        publicPath,
+        writeToFileEmit: true,
       }),
     ],
   }),
@@ -94,7 +109,7 @@ const configs = [
 
 const clientCssLoader = configs[1].module.rules.find((l) => l.test.test('.css'));
 
-if (process.env.NODE_ENV === 'production') {
+if (production) {
   configs[1].plugins.push(new webpack.optimize.UglifyJsPlugin());
   configs[1].plugins.push(new ExtractTextPlugin('styles-[contenthash:5].css'));
   clientCssLoader.loader = ExtractTextPlugin.extract(clientCssLoader.use.concat([]));
