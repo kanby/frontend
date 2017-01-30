@@ -18,7 +18,7 @@ const serverPort = 3000;
 
 const config = Object.assign({}, clientConfig, {
   entry: Object.assign({}, clientConfig.entry, {
-    webpackHot: 'webpack-hot-middleware/client',
+    client: ['webpack-hot-middleware/client'].concat(clientConfig.entry.client),
   }),
   plugins: clientConfig.plugins.concat([
     new webpack.HotModuleReplacementPlugin(),
