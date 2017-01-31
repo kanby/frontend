@@ -1,7 +1,5 @@
 @value small, medium, large from 'shared/styles/spacing.css' ;
-
 @value mq-medium, mq-large from 'shared/styles/responsive.css' ;
-
 @value grid-max-width: 1400px ;
 
 .container {

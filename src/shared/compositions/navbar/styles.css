@@ -1,5 +1,4 @@
 @value paddingTop1, paddingBottom1 from 'shared/styles/spacing.css' ;
-
 @value slate from 'shared/styles/colors.css' ;
 
 .wrapper {

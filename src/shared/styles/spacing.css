@@ -1,9 +1,6 @@
 @value mq-medium, mq-large from 'shared/styles/responsive.css' ;
-
 @value small 8px ;
-
 @value medium 12px ;
-
 @value large 16px ;
 
 .paddingBottom1 {
