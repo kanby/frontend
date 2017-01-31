@@ -24,7 +24,7 @@ export default function createConfig(validateAtRuntime: boolean = false) {
       if (typeof error === 'string') conf.log(key, error.replace('[val]', val));
       if (typeof error === 'boolean' && !error) conf.log(key);
     },
-    logger: console.log, // eslint-disable-line no-console
+    logger: console.log,
     log: (key: string, message: string | void): void => {
       if (message) {
         conf.logger(`config error at '${key}': ${message}`);

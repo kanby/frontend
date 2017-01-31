@@ -5,7 +5,10 @@ const reducers = combineReducers({
   routing: routerReducer,
 });
 
-export default function (history, initialState) {
+export default function(history, initialState) {
   const reduxRouterMiddleware = routerMiddleware(history);
-  return applyMiddleware(reduxRouterMiddleware)(createStore)(reducers, initialState);
+  return applyMiddleware(reduxRouterMiddleware)(createStore)(
+    reducers,
+    initialState,
+  );
 }

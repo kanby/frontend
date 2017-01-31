@@ -25,8 +25,7 @@ const conf = {
 
 const publicPath = '/assets/';
 
-const configs = [
-  merge(conf, {
+const configs = [merge(conf, {
     name: 'server',
     entry: {
       server: path.join(__dirname, 'src', 'server', 'index.js'),
@@ -42,7 +41,11 @@ const configs = [
           loader: 'babel-loader',
           query: {
             presets: ['node7'],
-            plugins: ['async-to-promises', 'inferno', 'transform-flow-strip-types'],
+            plugins: [
+              'async-to-promises',
+              'inferno',
+              'transform-flow-strip-types',
+            ],
           },
         },
         {
@@ -59,14 +62,13 @@ const configs = [
     },
     externals: [nodeExternals()],
     target: 'node',
-  }),
-  merge(conf, {
+  }), merge(conf, {
     name: 'client',
     entry: {
       client: path.join(__dirname, 'src', 'client', 'index.js'),
     },
     output: {
-      filename: (production ? '[name]-[hash:5].js' : '[name].js'),
+      filename: production ? '[name]-[hash:5].js' : '[name].js',
       publicPath,
       path: path.join(__dirname, 'dist', 'assets'),
     },
@@ -77,7 +79,11 @@ const configs = [
           loader: 'babel-loader',
           query: {
             presets: ['latest'],
-            plugins: ['async-to-promises', 'inferno', 'transform-flow-strip-types'],
+            plugins: [
+              'async-to-promises',
+              'inferno',
+              'transform-flow-strip-types',
+            ],
           },
         },
         {
@@ -85,7 +91,14 @@ const configs = [
           use: [
             // ExtractTextPlugin injected here when NODE_ENV === 'production'
             // style-loader injected here when NODE_ENV !== 'production'
-            { loader: 'css-loader', query: { importLoaders: 1, sourceMap: !production, minimize: production } },
+            {
+              loader: 'css-loader',
+              query: {
+                importLoaders: 1,
+                sourceMap: !production,
+                minimize: production,
+              },
+            },
             { loader: 'postcss-loader' },
           ],
         },
@@ -104,15 +117,16 @@ const configs = [
         writeToFileEmit: true,
       }),
     ],
-  }),
-];
+  })];
 
-const clientCssLoader = configs[1].module.rules.find((l) => l.test.test('.css'));
+const clientCssLoader = configs[1].module.rules.find(l => l.test.test('.css'));
 
 if (production) {
   configs[1].plugins.push(new webpack.optimize.UglifyJsPlugin());
   configs[1].plugins.push(new ExtractTextPlugin('styles-[contenthash:5].css'));
-  clientCssLoader.loader = ExtractTextPlugin.extract(clientCssLoader.use.concat([]));
+  clientCssLoader.loader = ExtractTextPlugin.extract(
+    clientCssLoader.use.concat([]),
+  );
   delete clientCssLoader.use;
 } else {
   clientCssLoader.use.unshift({ loader: 'style-loader' });

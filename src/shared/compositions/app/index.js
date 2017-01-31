@@ -3,8 +3,8 @@ import Navbar from 'compositions/navbar';
 import 'shared/styles/global.css';
 
 type AppProps = {
-  children: any
-}
+  children: any,
+};
 
 const App = ({ children }: AppProps) => (
   <div>

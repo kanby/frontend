@@ -14,9 +14,7 @@ require('babel-core/register')({
 
 require('css-modules-require-hook')({
   generateScopedName: postcss.generateScopedName,
-  prepend: [
-    aliasPlugin(webpackConfig[0].resolve.alias),
-  ],
+  prepend: [aliasPlugin(webpackConfig[0].resolve.alias)],
 });
 
 require('chai').use(require('sinon-chai'));

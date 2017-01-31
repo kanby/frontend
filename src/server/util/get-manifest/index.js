@@ -11,7 +11,7 @@ const getRawManifest = () => {
   return null;
 };
 
-const parse = (rawManifest) => {
+const parse = rawManifest => {
   if (cachedManifest) {
     return cachedManifest;
   }

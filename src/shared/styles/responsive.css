@@ -1,4 +1,7 @@
-@value breakpoint-medium: 768px;
-@value breakpoint-large: 1200px;
-@value mq-medium: only screen and (min-width: breakpoint-medium);
-@value mq-large: only screen and (min-width: breakpoint-large);
+@value breakpoint-medium: 768px ;
+
+@value breakpoint-large: 1200px ;
+
+@value mq-medium: only screen and (min-width: breakpoint-medium) ;
+
+@value mq-large: only screen and (min-width: breakpoint-large) ;

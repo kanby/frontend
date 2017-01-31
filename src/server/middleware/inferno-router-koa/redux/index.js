@@ -1,7 +1,12 @@
 import Inferno from 'inferno';
 import { Provider } from 'inferno-redux';
 import compose from 'koa-compose';
-import { initRouting, getRenderProps, handleRedirects, renderBody } from '../index';
+import {
+  initRouting,
+  getRenderProps,
+  handleRedirects,
+  renderBody,
+} from '../index';
 import initStore from './init-store';
 
 const wrapBody = (ctx, next) => {
@@ -15,7 +20,7 @@ const wrapBody = (ctx, next) => {
   return next();
 };
 
-const infernoRouterRedux = (routes) => (
+const infernoRouterRedux = routes =>
   compose([
     initRouting(routes),
     getRenderProps,
@@ -23,8 +28,7 @@ const infernoRouterRedux = (routes) => (
     initStore,
     renderBody,
     wrapBody,
-  ])
-);
+  ]);
 
 export default infernoRouterRedux;
 

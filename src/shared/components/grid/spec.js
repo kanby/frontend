@@ -12,7 +12,9 @@ describe('grid/container', () => {
 
   it('is fluid by default', () => {
     const $ = render(<Container>Hello, world!</Container>);
-    expect($(selector(styles.container)).attr('class')).to.contain(styles.fluid);
+    expect($(selector(styles.container)).attr('class')).to.contain(
+      styles.fluid,
+    );
   });
 });
 

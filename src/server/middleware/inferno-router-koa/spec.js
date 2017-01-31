@@ -1,11 +1,16 @@
+import { createMockComponent } from 'test/utils';
 import { expect } from 'chai';
+import { renderToString } from 'inferno-server';
 import Inferno from 'inferno';
 import infernoRouter, { match, Route, IndexRoute } from 'inferno-router';
-import { renderToString } from 'inferno-server';
 import sinon from 'sinon';
-import { createMockComponent } from 'test/utils';
 
-import { initRouting, getRenderProps, handleRedirects, renderBody } from './index';
+import {
+  initRouting,
+  getRenderProps,
+  handleRedirects,
+  renderBody,
+} from './index';
 
 const App = createMockComponent('App');
 const Page1 = createMockComponent('Page1');
@@ -51,9 +56,12 @@ describe('server:middleware/inferno-router-koa', () => {
       spy.restore();
     });
 
-    it('matches render props using inferno router\'s match, passing url and routes from context', () => {
-      expect(spy).to.have.been.calledWith(routes, url);
-    });
+    it(
+      "matches render props using inferno router's match, passing url and routes from context",
+      () => {
+        expect(spy).to.have.been.calledWith(routes, url);
+      },
+    );
 
     it('saves renderProps in routing state', () => {
       expect(ctx.state.infernoRouter.renderProps).to.be.defined;
@@ -68,13 +76,7 @@ describe('server:middleware/inferno-router-koa', () => {
     it('redirects when a redirect url is found in renderProps', () => {
       const ctx = {
         ...baseContext,
-        state: {
-          infernoRouter: {
-            renderProps: {
-              redirect: '/test',
-            },
-          },
-        },
+        state: { infernoRouter: { renderProps: { redirect: '/test' } } },
         redirect: sinon.spy(),
       };
 
@@ -90,14 +92,7 @@ describe('server:middleware/inferno-router-koa', () => {
   describe('renderBody', () => {
     it('renders a RouterContext with resolved renderProps', () => {
       const renderProps = match(routes, '/test/path');
-      const ctx = {
-        ...baseContext,
-        state: {
-          infernoRouter: {
-            renderProps,
-          },
-        },
-      };
+      const ctx = { ...baseContext, state: { infernoRouter: { renderProps } } };
 
       const next = sinon.spy();
 
@@ -105,11 +100,13 @@ describe('server:middleware/inferno-router-koa', () => {
 
       expect(ctx.state.infernoRouter.body).to.be.defined;
 
-      expect(renderToString(ctx.state.infernoRouter.body)).to.deep.equal(renderToString(
-        <App>
-          <Page2 />
-        </App>,
-      ));
+      expect(renderToString(ctx.state.infernoRouter.body)).to.deep.equal(
+        renderToString(
+          <App>
+            <Page2 />
+          </App>,
+        ),
+      );
 
       expect(next).to.have.been.called;
     });

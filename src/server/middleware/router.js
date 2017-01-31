@@ -6,7 +6,7 @@ import getManifest from '../util/get-manifest';
 
 const router = new Router();
 
-router.get('/health', (ctx) => {
+router.get('/health', ctx => {
   ctx.status = 200;
 });
 
@@ -15,7 +15,9 @@ router.get('*', async (ctx, next) => {
     const manifest = await getManifest();
 
     ctx.body = renderToString(
-      <AppTemplate locale="en" title="Kanby" manifest={manifest}>{ctx.state.infernoRouter.body}</AppTemplate>,
+      <AppTemplate locale="en" title="Kanby" manifest={manifest}>
+        {ctx.state.infernoRouter.body}
+      </AppTemplate>,
     );
 
     ctx.status = 200;

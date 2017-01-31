@@ -14,7 +14,7 @@ syncHistoryWithStore(browserHistory, store);
 
 if (config.get('environment') === 'development') {
   store.subscribe(() => {
-    console.log(store.getState()); // eslint-disable-line no-console
+    console.log(store.getState());
   });
 }
 

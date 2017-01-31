@@ -15,5 +15,4 @@ server.use(infernoRouter(routes));
 server.use(router.routes());
 server.use(router.allowedMethods());
 
-
 export default server;

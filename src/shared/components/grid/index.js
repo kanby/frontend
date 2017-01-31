@@ -11,7 +11,9 @@ type ContainerProps = {
 };
 
 const Container = ({ children, className, fluid = true }: ContainerProps) => (
-  <div className={classnames(styles.container, className, { [styles.fluid]: fluid })}>
+  <div className={classnames(styles.container, className, {
+      [styles.fluid]: fluid,
+    })}>
     {children}
   </div>
 );

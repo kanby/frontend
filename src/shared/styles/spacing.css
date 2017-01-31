@@ -1,17 +1,35 @@
-@value mq-medium, mq-large from 'shared/styles/responsive.css';
-@value small 8px;
-@value medium 12px;
-@value large 16px;
+@value mq-medium, mq-large from 'shared/styles/responsive.css' ;
 
-.paddingBottom1 { padding-bottom: small; }
-.paddingTop1 { padding-top: small; }
+@value small 8px ;
+
+@value medium 12px ;
+
+@value large 16px ;
+
+.paddingBottom1 {
+  padding-bottom: small;
+}
+
+.paddingTop1 {
+  padding-top: small;
+}
 
 @media mq-medium {
-  .paddingBottom1 { padding-bottom: medium; }
-  .paddingTop1 { padding-top: medium; }
+  .paddingBottom1 {
+    padding-bottom: medium;
+  }
+
+  .paddingTop1 {
+    padding-top: medium;
+  }
 }
 
 @media mq-large {
-  .paddingBottom1 { padding-bottom: large; }
-  .paddingTop1 { padding-top: large; }
+  .paddingBottom1 {
+    padding-bottom: large;
+  }
+
+  .paddingTop1 {
+    padding-top: large;
+  }
 }

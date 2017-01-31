@@ -7,7 +7,15 @@ describe('validators/is-string', () => {
   });
 
   it('returns false if not a string', () => {
-    [12, false, new Date(), new Set(), new Map(), null, undefined].forEach((val) => {
+    [
+      12,
+      false,
+      new Date(),
+      new Set(),
+      new Map(),
+      null,
+      undefined,
+    ].forEach(val => {
       expect(isString(val)).to.be.false;
     });
   });

@@ -22,5 +22,4 @@ test:
     - yarn test -- --reporter mocha-multi-reporters --reporter-options configFile=test/circle-reporter.json:
         environment:
           MOCHA_FILE: $CIRCLE_TEST_REPORTS/junit/test-results.xml
-    - yarn lint
     - yarn typecheck

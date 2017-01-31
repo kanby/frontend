@@ -8,7 +8,9 @@ describe('util/get-manifest', () => {
   const data = '{ "test": "hello-world.js" }';
   let stub;
 
-  beforeEach(() => { stub = sinon.stub(fs, 'readFile').returns(data); });
+  beforeEach(() => {
+    stub = sinon.stub(fs, 'readFile').returns(data);
+  });
   afterEach(() => stub.restore());
 
   it('returns manifest.json as an object', async () => {

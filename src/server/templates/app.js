@@ -3,25 +3,29 @@
 import Inferno from 'inferno';
 import config from 'server/config';
 
-function stylesheet(env: string, manifest: Object) {
+const stylesheet = (env: string, manifest: Object) => {
   if (env !== 'development') {
-    return <link rel="stylesheet" type="text/css" href={manifest['client.css']} />;
+    return (
+      <link rel="stylesheet" type="text/css" href={manifest['client.css']} />
+    );
   }
 
   return null;
-}
+};
 
 type AppTemplateProps = {
   children: any,
   locale: string,
   title: string,
-  manifest: Object
-}
+  manifest: Object,
+};
 
-const AppTemplate = ({ children, locale = 'en', title, manifest }: AppTemplateProps) => (
+const AppTemplate = (
+  { children, locale = 'en', title, manifest }: AppTemplateProps,
+) => (
   <html lang={locale}>
     <head>
-      <meta charSet="utf-8"/>
+      <meta charSet="utf-8" />
       <title>{title}</title>
       {stylesheet(config.get('environment'), manifest)}
     </head>
@@ -29,7 +33,7 @@ const AppTemplate = ({ children, locale = 'en', title, manifest }: AppTemplatePr
       <div id="application">
         {children}
       </div>
-      <script type="text/javascript" src={manifest['client.js']}></script>
+      <script type="text/javascript" src={manifest['client.js']} />
     </body>
   </html>
 );

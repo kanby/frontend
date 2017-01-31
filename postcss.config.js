@@ -5,7 +5,8 @@ const modulesValues = require('postcss-modules-values');
 const cssNext = require('postcss-cssnext');
 const createHash = require('crypto').createHash;
 
-const generateScopedName = (name, fpath) => `${name}-${createHash('md5').update(fpath).digest('base64').slice(0, 5)}`;
+const generateScopedName = (name, fpath) =>
+  `${name}-${createHash('md5').update(fpath).digest('base64').slice(0, 5)}`;
 
 module.exports = {
   plugins: [
