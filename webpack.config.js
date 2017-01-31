@@ -125,7 +125,7 @@ if (production) {
   configs[1].plugins.push(new webpack.optimize.UglifyJsPlugin());
   configs[1].plugins.push(new ExtractTextPlugin('styles-[contenthash:5].css'));
   clientCssLoader.loader = ExtractTextPlugin.extract(
-    clientCssLoader.use.concat([]),
+    clientCssLoader.use.concat([])
   );
   delete clientCssLoader.use;
 } else {

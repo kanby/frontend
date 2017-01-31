@@ -59,7 +59,7 @@ const serverCompiler = webpack(Object.assign({}, serverConfig, {
 
 const serverFile = path.join(
   serverConfig.output.path,
-  serverConfig.output.filename.replace('[name]', 'server'),
+  serverConfig.output.filename.replace('[name]', 'server')
 );
 
 let serverMiddleware;
