@@ -12,6 +12,7 @@ config.set(
     validator('[val] is not an allowed environment'),
   ),
 );
+
 config.set(
   'assets/directory',
   'assets',
