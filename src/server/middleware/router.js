@@ -2,28 +2,38 @@ import Inferno from 'inferno';
 import Router from 'koa-router';
 import { renderToString } from 'inferno-server';
 import AppTemplate from '../templates/app';
-import getManifest from '../util/get-manifest';
 
-const router = new Router();
+import { match } from 'shared/routing';
+import routes from 'shared/routing/routes';
 
-router.get('/health', ctx => {
-  ctx.status = 200;
-});
-
-router.get('*', async (ctx, next) => {
-  if (ctx.state.infernoRouter && ctx.state.infernoRouter.body) {
-    const manifest = await getManifest();
+const routeHandler = rtr => route => {
+  rtr.get(route.path, async (ctx, next) => {
+    // Still get params from route.Route
+    const params = route.Route.match(ctx.url);
 
     ctx.body = renderToString(
-      <AppTemplate locale="en" title="Kanby" manifest={manifest}>
-        {ctx.state.infernoRouter.body}
+      <AppTemplate locale="en" title="Kanby">
+        <route.component />
       </AppTemplate>,
     );
 
     ctx.status = 200;
-  }
 
-  return next();
-});
+    return next();
+  });
+};
+
+const router = routes => {
+  const rtr = new Router();
+
+  rtr.get('/health', ctx => {
+    ctx.status = 200;
+  });
+
+  const handler = routeHandler(rtr);
+  routes.forEach(handler);
+
+  return rtr;
+};
 
 export default router;

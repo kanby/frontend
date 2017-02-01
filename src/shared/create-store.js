@@ -1,14 +1,7 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux';
-import { routerMiddleware, routerReducer } from 'react-router-redux';
+import { createStore } from 'redux';
 
-const reducers = combineReducers({
-  routing: routerReducer,
-});
+const reducer = state => state;
 
-export default function(history, initialState) {
-  const reduxRouterMiddleware = routerMiddleware(history);
-  return applyMiddleware(reduxRouterMiddleware)(createStore)(
-    reducers,
-    initialState,
-  );
-}
+export default initialState => {
+  return createStore(reducer, initialState);
+};

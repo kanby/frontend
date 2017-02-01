@@ -5,7 +5,9 @@ const nodeExternals = require('webpack-node-externals');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
+const sha = require('child_process').execSync('git rev-parse HEAD').toString().trim().substr(0, 5);
 const production = process.env.NODE_ENV === 'production';
+const manifestCache = {};
 
 const conf = {
   context: __dirname,
@@ -19,11 +21,15 @@ const conf = {
       test: path.resolve(__dirname, 'test'),
     },
   },
-  plugins: [],
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.COMMIT_SHA': '"' + sha + '"',
+    }),
+  ],
   devtool: production ? 'eval' : 'source-map',
 };
 
-const publicPath = '/assets/';
+const publicPath = '/assets-' + sha + '/';
 
 const configs = [merge(conf, {
     name: 'server',
@@ -68,9 +74,9 @@ const configs = [merge(conf, {
       client: path.join(__dirname, 'src', 'client', 'index.js'),
     },
     output: {
-      filename: production ? '[name]-[hash:5].js' : '[name].js',
+      filename: '[name].js',
       publicPath,
-      path: path.join(__dirname, 'dist', 'assets'),
+      path: path.join(__dirname, 'dist', publicPath),
     },
     module: {
       rules: [
@@ -110,11 +116,6 @@ const configs = [merge(conf, {
         'process.env': {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         },
-      }),
-      new ManifestPlugin({
-        fileName: '../manifest.json',
-        publicPath,
-        writeToFileEmit: true,
       }),
     ],
   })];

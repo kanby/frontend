@@ -1,16 +1,12 @@
 import Inferno, { render } from 'inferno';
-import { Router } from 'inferno-router';
-import routes from 'shared/routes';
-import createBrowserHistory from 'history/createBrowserHistory';
-import { syncHistoryWithStore } from 'react-router-redux';
+import appRoutes from 'shared/routing/routes';
+import { match } from 'shared/routing';
 import { Provider } from 'inferno-redux';
 import createStore from 'shared/create-store';
 import config from 'client/config';
 
-const browserHistory = createBrowserHistory();
 const initialState = {};
-const store = createStore(browserHistory, initialState);
-syncHistoryWithStore(browserHistory, store);
+const store = createStore(initialState);
 
 if (config.get('environment') === 'development') {
   store.subscribe(() => {
@@ -18,12 +14,30 @@ if (config.get('environment') === 'development') {
   });
 }
 
-const App = (
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      {routes}
-    </Router>
-  </Provider>
-);
+const renderApplication = (routes, url) => {
+  const matched = match(routes, url);
 
-render(App, document.getElementById('application'));
+  if (matched) {
+    const { route: { component: Component }, params } = matched;
+
+    const App = (
+      <Provider store={store}>
+        <Component />
+      </Provider>
+    );
+
+    render(App, document.getElementById('application'));
+  }
+};
+
+const currentPath = () =>
+  `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+renderApplication(appRoutes, currentPath());
+
+if (module.hot) {
+  module.hot.accept('shared/routing/routes', () => {
+    const newRoutes = require('shared/routing/routes').default;
+    renderApplication(newRoutes, currentPath());
+  });
+}

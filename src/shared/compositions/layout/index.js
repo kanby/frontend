@@ -2,11 +2,11 @@ import Inferno from 'inferno';
 import Navbar from 'compositions/navbar';
 import 'shared/styles/global.css';
 
-type AppProps = {
+type LayoutProps = {
   children: any,
 };
 
-const App = ({ children }: AppProps) => (
+const Layout = ({ children }: LayoutProps) => (
   <div>
     <Navbar />
     <main role="main">
@@ -15,4 +15,4 @@ const App = ({ children }: AppProps) => (
   </div>
 );
 
-export default App;
+export default Layout;

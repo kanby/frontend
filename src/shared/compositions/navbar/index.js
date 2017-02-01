@@ -1,5 +1,4 @@
 import Inferno from 'inferno';
-import { Link } from 'inferno-router';
 
 import { Container, Row, Col } from 'components/grid';
 import styles from './styles.css';
@@ -10,8 +9,8 @@ const Navbar = () => (
       <Row>
         <Col>
           <ul className={styles.menu}>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/boards">Boards</Link></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/boards">Boards</a></li>
           </ul>
         </Col>
       </Row>
