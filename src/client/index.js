@@ -1,7 +1,8 @@
-import Inferno, { render } from 'inferno';
+import React from 'react';
+import { render } from 'react-dom';
 import appRoutes from 'shared/routing/routes';
 import { match } from 'shared/routing';
-import { Provider } from 'inferno-redux';
+import { Provider } from 'react-redux';
 import createStore from 'shared/create-store';
 import config from 'client/config';
 
@@ -15,14 +16,14 @@ if (config.get('environment') === 'development') {
 }
 
 const renderApplication = (routes, url) => {
-  const matched = match(routes, url);
+  const routingProps = match(routes, url);
 
-  if (matched) {
-    const { route: { component: Component }, params } = matched;
+  if (routingProps) {
+    const { route } = routingProps;
 
     const App = (
       <Provider store={store}>
-        <Component />
+        <route.component routing={routingProps} />
       </Provider>
     );
 

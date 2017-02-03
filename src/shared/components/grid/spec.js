@@ -1,4 +1,4 @@
-import Inferno from 'inferno';
+import React from 'react';
 import { expect } from 'chai';
 import { render, selector } from 'test/utils';
 import { Col, Container, Row } from './index';

@@ -15,5 +15,6 @@ server.use(logger);
 server.use(assets);
 server.use(appRouter.routes());
 server.use(appRouter.allowedMethods());
+server.use(ctx => ctx.status = 404);
 
 export default server;

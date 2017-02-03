@@ -1,4 +1,4 @@
-import Inferno from 'inferno';
+import React from 'react';
 import Navbar from 'compositions/navbar';
 import 'shared/styles/global.css';
 

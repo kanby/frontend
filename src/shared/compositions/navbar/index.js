@@ -1,4 +1,4 @@
-import Inferno from 'inferno';
+import React from 'react';
 
 import { Container, Row, Col } from 'components/grid';
 import styles from './styles.css';

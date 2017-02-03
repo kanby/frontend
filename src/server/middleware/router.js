@@ -1,6 +1,6 @@
-import Inferno from 'inferno';
+import React from 'react';
 import Router from 'koa-router';
-import { renderToString } from 'inferno-server';
+import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import AppTemplate from '../templates/app';
 
 import { match } from 'shared/routing';
@@ -9,17 +9,15 @@ import routes from 'shared/routing/routes';
 const routeHandler = rtr => route => {
   rtr.get(route.path, async (ctx, next) => {
     // Still get params from route.Route
-    const params = route.Route.match(ctx.url);
+    const routingProps = route.Route.match(ctx.url);
 
-    ctx.body = renderToString(
-      <AppTemplate locale="en" title="Kanby">
-        <route.component />
-      </AppTemplate>,
+    const body = renderToString(<route.component routing={routingProps} />);
+
+    ctx.body = renderToStaticMarkup(
+      <AppTemplate locale="en" title="Kanby" body={body} />,
     );
 
     ctx.status = 200;
-
-    return next();
   });
 };
 

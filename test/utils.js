@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
-import Inferno from 'inferno';
-import { renderToStaticMarkup } from 'inferno-server';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 export const render = node => cheerio.load(renderToStaticMarkup(node));
 export const selector = (...styles) =>

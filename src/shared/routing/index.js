@@ -13,7 +13,7 @@ const route = (path, component) => {
 /*
   Match simply takes routes and a request URL and returns an object:
     {
-      route: object: { path, component } -- matched route
+      route: object: { path, component, Route } -- matched route
       path: string -- original path
       params: object -- resolved route params (if any)
     }
@@ -28,6 +28,16 @@ const match = (routes, path) => {
   }
 
   return null;
+};
+
+const getRoutingProps = matched => {
+  const { route, url, params } = matched;
+
+  return {
+    Route: route.Route,
+    url,
+    params,
+  };
 };
 
 export { match, route };

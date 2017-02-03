@@ -46,10 +46,9 @@ const configs = [merge(conf, {
           test: /\.js$/,
           loader: 'babel-loader',
           query: {
-            presets: ['node7'],
+            presets: ['node7', 'react'],
             plugins: [
               'async-to-promises',
-              'inferno',
               'transform-flow-strip-types',
             ],
           },
@@ -84,10 +83,9 @@ const configs = [merge(conf, {
           test: /\.js$/,
           loader: 'babel-loader',
           query: {
-            presets: ['latest'],
+            presets: ['latest', 'react'],
             plugins: [
               'async-to-promises',
-              'inferno',
               'transform-flow-strip-types',
             ],
           },

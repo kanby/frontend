@@ -1,6 +1,6 @@
 /* @flow */
 
-import Inferno from 'inferno';
+import React from 'react';
 import config from 'server/config';
 import path from 'path';
 
@@ -19,12 +19,15 @@ const stylesheet = (env: string) => {
 };
 
 type AppTemplateProps = {
+  body: string,
   children: any,
   locale: string,
   title: string,
 };
 
-const AppTemplate = ({ children, locale = 'en', title }: AppTemplateProps) => (
+const AppTemplate = (
+  { children, locale = 'en', title, body }: AppTemplateProps,
+) => (
   <html lang={locale}>
     <head>
       <meta charSet="utf-8" />
@@ -32,9 +35,7 @@ const AppTemplate = ({ children, locale = 'en', title }: AppTemplateProps) => (
       {stylesheet(config.get('environment'))}
     </head>
     <body>
-      <div id="application">
-        {children}
-      </div>
+      <div id="application" dangerouslySetInnerHTML={{ __html: body }} />
       <script type="text/javascript" src={assetPath('client.js')} />
     </body>
   </html>
