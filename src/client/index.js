@@ -17,15 +17,15 @@ if (config.get('environment') === 'development') {
 }
 
 const renderApplication = (routes, url) => {
-  const routingProps = match(routes, url);
+  const matched = match(routes, url);
 
-  if (routingProps) {
-    const { route } = routingProps;
+  if (matched) {
+    const Component = matched.route.component;
 
     const App = (
       <StoreProvider store={store}>
-        <RoutingProvider routing={getRoutingProp(routingProps)}>
-          <route.component />
+        <RoutingProvider routing={getRoutingProp(matched)}>
+          <Component />
         </RoutingProvider>
       </StoreProvider>
     );

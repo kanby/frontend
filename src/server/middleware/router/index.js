@@ -1,7 +1,6 @@
-import React from 'react';
 import Router from 'koa-router';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
-import AppTemplate from '../templates/app';
+import AppTemplate from '../../templates/app';
 
 import { match } from 'shared/routing';
 import routes from 'shared/routing/routes';
