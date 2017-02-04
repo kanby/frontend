@@ -125,6 +125,63 @@
   }
 
   .m-1 {
+  .container {
+    padding: 0 large;
+  }
+
+  .col {
+    margin: 0 calc(0.5 * large);
+  }
+
+  .row {
+    margin: 0 calc(-0.5 * large);
+  }
+
+  .l-12 {
+    width: 100%;
+  }
+
+  .l-11 {
+    width: calc(100% / 12 * 11);
+  }
+
+  .l-10 {
+    width: calc(100% / 12 * 10);
+  }
+
+  .l-9 {
+    width: calc(100% / 12 * 9);
+  }
+
+  .l-8 {
+    width: calc(100% / 12 * 8);
+  }
+
+  .l-7 {
+    width: calc(100% / 12 * 7);
+  }
+
+  .l-6 {
+    width: calc(100% / 12 * 6);
+  }
+
+  .l-5 {
+    width: calc(100% / 12 * 5);
+  }
+
+  .l-4 {
+    width: calc(100% / 12 * 4);
+  }
+
+  .l-3 {
+    width: calc(100% / 12 * 3);
+  }
+
+  .l-2 {
+    width: calc(100% / 12 * 2);
+  }
+
+  .l-1 {
     width: calc(100% / 12);
   }
 }

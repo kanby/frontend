@@ -2,7 +2,9 @@
 
 import React from 'react';
 import classnames from 'classnames';
-import styles from './styles.css';
+// import styles from './styles.css';
+import { styled } from 'styletron-react';
+import { breakpoints, media, spacing } from 'shared/styles';
 
 type ContainerProps = {
   children: any,
@@ -10,24 +12,23 @@ type ContainerProps = {
   fluid: boolean,
 };
 
-const Container = ({ children, className, fluid = true }: ContainerProps) => (
-  <div className={classnames(styles.container, className, {
-      [styles.fluid]: fluid,
-    })}>
-    {children}
-  </div>
-);
+const Container = styled('div', ({ fluid }: ContainerProps) => ({
+  maxWidth: (fluid ? '1400px' : 'initial'),
+  padding: `0 ${spacing.small}px`,
+  [media.medium]: { padding: `0 ${spacing.medium}px` },
+  [media.large]: { padding: `0 ${spacing.large}px` },
+}));
 
-const Row = ({ children }: { children: any }) => (
-  <div className={styles.row}>
-    {children}
-  </div>
-);
+const Row = styled('div', {
+  margin: `0 ${0.5 * spacing.small}px`,
+  [media.medium]: { margin: `0 ${0.5 * spacing.medium}px`},
+  [media.large]: { margin: `0 ${0.5 * spacing.large}px`},
+});
 
-const Col = ({ children }: { children: any }) => (
-  <div className={styles.col}>
-    {children}
-  </div>
-);
+const Col = styled('div', {
+  margin: `0 ${-0.5 * spacing.small}px`,
+  [media.medium]: { margin: `0 ${-0.5 * spacing.medium}px`},
+  [media.large]: { margin: `0 ${-0.5 * spacing.large}px`},
+})
 
 export { Col, Container, Row };

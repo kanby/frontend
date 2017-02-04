@@ -2,21 +2,35 @@ import React from 'react';
 
 import { Link } from 'react-router';
 import { Container, Row, Col } from 'components/grid';
-import styles from './styles.css';
+// import styles from './styles.css';
+import { styled } from 'styletron-react';
+import { colors, spacing } from 'shared/styles';
+
+const List = styled('ul', {
+  listStyleType: 'none',
+  marginBottom: 0,
+  marginTop: 0,
+  padding: 0,
+})
+
+const Nav = styled('nav', {
+  backgroundColor: colors.slate,
+  ...spacing.paddingVertical(),
+});
 
 const Navbar = () => (
-  <nav className={styles.wrapper}>
+  <Nav>
     <Container>
       <Row>
         <Col>
-          <ul className={styles.menu}>
+          <List>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/boards">Boards</Link></li>
-          </ul>
+          </List>
         </Col>
       </Row>
     </Container>
-  </nav>
+  </Nav>
 );
 
 export default Navbar;

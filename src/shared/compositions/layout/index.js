@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from 'compositions/navbar';
-import 'shared/styles/global.css';
 
 type LayoutProps = {
   children: any,

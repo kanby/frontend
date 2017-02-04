@@ -1,15 +1,20 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider as StoreProvider } from 'react-redux';
+import Styletron from 'styletron-server';
+import { StyletronProvider } from 'styletron-react';
 import { RouterContext } from 'react-router';
 
 export default (ctx, next) => {
   if (ctx.state.renderProps) {
+    const styletron = ctx.state.styletron = new Styletron();
     const store = ctx.state.store;
 
     ctx.state.tree = (
-      <Provider store={store}>
-        <RouterContext {...ctx.state.renderProps} />
-      </Provider>
+      <StyletronProvider styletron={styletron}>
+        <StoreProvider store={store}>
+          <RouterContext {...ctx.state.renderProps} />
+        </StoreProvider>
+      </StyletronProvider>
     );
   }
 

@@ -31,7 +31,10 @@
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",
     "react-router-redux": "^4.0.7",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "styletron-client": "^2.5.1",
+    "styletron-react": "^2.5.2",
+    "styletron-server": "^2.5.1"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
@@ -39,6 +42,7 @@
     "babel-plugin-fast-async": "^6.1.2",
     "babel-plugin-transform-class-properties": "^6.22.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.22.0",
     "babel-plugin-webpack-alias": "^2.1.2",
     "babel-preset-babili": "^0.0.10",
     "babel-preset-env": "^1.1.8",

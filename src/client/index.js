@@ -3,12 +3,15 @@ import config from 'client/config';
 import decode from 'ent/decode';
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider as StoreProvider } from 'react-redux';
 import { match, Router, Route, browserHistory } from 'react-router';
 import createStore from 'shared/create-store';
 import routes from 'shared/routes';
+import Styletron from 'styletron-client';
+import { StyletronProvider } from 'styletron-react';
 
 const initialState = JSON.parse(decode(document.getElementById('application:state').innerText)); // TODO: Read server-sent state here.
+const styletron = new Styletron(document.getElementsByClassName('_styletron_hydrate_'));
 
 const { history, store } = createStore({
   history: browserHistory,
@@ -35,9 +38,11 @@ const renderApplication = (routes, url) => {
       window.location = redirectLocation.pathname + redirectLocation.search;
     } else if (renderProps) {
       const App = (
-        <Provider store={store}>
-          <Router {...renderProps} />
-        </Provider>
+        <StyletronProvider styletron={styletron}>
+          <StoreProvider store={store}>
+            <Router {...renderProps} />
+          </StoreProvider>
+        </StyletronProvider>
       );
 
       render(App, document.getElementById('application'));

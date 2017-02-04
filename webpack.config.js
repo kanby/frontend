@@ -52,17 +52,11 @@ const configs = [merge(conf, {
             ],
             plugins: [
               ['fast-async', { useRuntimeModule: true }],
+              'transform-object-rest-spread',
               'transform-class-properties',
               'transform-flow-strip-types',
             ],
           },
-        },
-        {
-          test: /\.css$/,
-          use: [
-            { loader: 'css-loader/locals', query: { importLoaders: 1 } },
-            { loader: 'postcss-loader' },
-          ],
         },
       ],
     },
@@ -93,26 +87,11 @@ const configs = [merge(conf, {
             ],
             plugins: [
               ['fast-async', { useRuntimeModule: true }],
+              'transform-object-rest-spread',
               'transform-class-properties',
               'transform-flow-strip-types',
             ],
           },
-        },
-        {
-          test: /\.css$/,
-          use: [
-            // ExtractTextPlugin injected here when NODE_ENV === 'production'
-            // style-loader injected here when NODE_ENV !== 'production'
-            {
-              loader: 'css-loader',
-              query: {
-                importLoaders: 1,
-                sourceMap: !production,
-                minimize: production,
-              },
-            },
-            { loader: 'postcss-loader' },
-          ],
         },
       ],
     },
@@ -127,19 +106,10 @@ const configs = [merge(conf, {
     ],
   })];
 
-const clientCssLoader = configs[1].module.rules.find(l => l.test.test('.css'));
-
 if (production) {
   configs[1].module.rules
     .find(l => l.loader === 'babel-loader')
     .query.presets.push('babili');
-  configs[1].plugins.push(new ExtractTextPlugin('style.css'));
-  clientCssLoader.loader = ExtractTextPlugin.extract(
-    clientCssLoader.use.concat([])
-  );
-  delete clientCssLoader.use;
-} else {
-  clientCssLoader.use.unshift({ loader: 'style-loader' });
 }
 
 module.exports = configs;
