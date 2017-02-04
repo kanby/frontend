@@ -2,7 +2,6 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 const sha = require('child_process').execSync('git rev-parse HEAD').toString().trim().substr(0, 5);

@@ -10,8 +10,12 @@ import routes from 'shared/routes';
 import Styletron from 'styletron-client';
 import { StyletronProvider } from 'styletron-react';
 
-const initialState = JSON.parse(decode(document.getElementById('application:state').innerText)); // TODO: Read server-sent state here.
-const styletron = new Styletron(document.getElementsByClassName('_styletron_hydrate_'));
+const initialState = JSON.parse(
+  decode(document.getElementById('application:state').innerText),
+); // TODO: Read server-sent state here.
+const styletron = new Styletron(
+  document.getElementsByClassName('_styletron_hydrate_'),
+);
 
 const { history, store } = createStore({
   history: browserHistory,

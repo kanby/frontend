@@ -12,7 +12,7 @@ export default (ctx: Object, next: Function) => {
       body,
       state: ctx.state.store.getState(),
       styles: ctx.state.styletron.getStylesheetsHtml(),
-      title: "Kanby",
+      title: 'Kanby',
     });
 
     ctx.status = 200;

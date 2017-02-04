@@ -11,7 +11,7 @@ const List = styled('ul', {
   marginBottom: 0,
   marginTop: 0,
   padding: 0,
-})
+});
 
 const Nav = styled('nav', {
   backgroundColor: colors.slate,

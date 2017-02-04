@@ -1,33 +1,34 @@
 import React from 'react';
+import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import { render, selector } from 'test/utils';
 import { Col, Container, Row } from './index';
-import styles from './styles.css';
+import { shallow } from 'enzyme';
+import { stubStyletron } from 'test/utils';
+import { styled } from 'styletron-react';
 
 describe('grid/container', () => {
-  it('renders children', () => {
-    const $ = render(<Container>Hello, world!</Container>);
-    expect($.text()).to.equal('Hello, world!');
-  });
+  stubStyletron();
 
-  it('is fluid by default', () => {
-    const $ = render(<Container>Hello, world!</Container>);
-    expect($(selector(styles.container)).attr('class')).to.contain(
-      styles.fluid,
-    );
+  it('renders children', () => {
+    const tree = shallow(<Container>Hello, world!</Container>);
+    expect(tree.text()).to.equal('Hello, world!');
   });
 });
 
 describe('grid/col', () => {
+  stubStyletron();
+
   it('renders children', () => {
-    const $ = render(<Col>Hello, world!</Col>);
-    expect($.text()).to.equal('Hello, world!');
+    const tree = shallow(<Col>Hello, world!</Col>);
+    expect(tree.text()).to.equal('Hello, world!');
   });
 });
 
 describe('grid/row', () => {
+  stubStyletron();
+
   it('renders children', () => {
-    const $ = render(<Row>Hello, world!</Row>);
-    expect($.text()).to.equal('Hello, world!');
+    const tree = shallow(<Row>Hello, world!</Row>);
+    expect(tree.text()).to.equal('Hello, world!');
   });
 });

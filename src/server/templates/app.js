@@ -19,25 +19,35 @@ type AppTemplateProps = {
   styles: string,
 };
 
-const escapeState = (state) => encode(JSON.stringify(state));
+const escapeState = state => encode(JSON.stringify(state));
 
-const AppTemplate = ({ locale = 'en', title, body, state }: AppTemplateProps) => (
+const AppTemplate = (
+  { locale = 'en', title, body, state }: AppTemplateProps,
+) => (
   <html lang={locale}>
     <head>
       <meta charSet="utf-8" />
       <title>{title}</title>
-      <style type="text/css" dangerouslySetInnerHTML={{ __html: globalStyles }} />
+      <style
+        type="text/css"
+        dangerouslySetInnerHTML={{ __html: globalStyles }}
+      />
       <script id="__STYLES__" />
     </head>
     <body>
-      <script id="application:state" type="text/plain" dangerouslySetInnerHTML={{ __html: escapeState(state) }}></script>
+      <script
+        id="application:state"
+        type="text/plain"
+        dangerouslySetInnerHTML={{ __html: escapeState(state) }}
+      />
       <div id="application" dangerouslySetInnerHTML={{ __html: body }} />
       <script type="text/javascript" src={assetPath('client.js')} />
     </body>
   </html>
 );
 
-export default (props: AppTemplateProps) => (
-  renderToStaticMarkup(<AppTemplate {...props} />)
-    .replace('<script id="__STYLES__"></script>', props.styles)
-);
+export default (props: AppTemplateProps) =>
+  renderToStaticMarkup(<AppTemplate {...props} />).replace(
+    '<script id="__STYLES__"></script>',
+    props.styles,
+  );

@@ -34,7 +34,7 @@ const spacing = {
       paddingTop: `${spacing.large * size}px`,
       paddingBottom: `${spacing.large * size}px`,
     },
-  })
+  }),
 };
 
 export { breakpoints, colors, spacing, media };

@@ -1,10 +1,12 @@
-import cheerio from 'cheerio';
+import { beforeEach, afterEach } from 'mocha';
 import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
+import sinon from 'sinon';
+import styletronReact from 'styletron-react';
 
-export const render = node => cheerio.load(renderToStaticMarkup(node));
-export const selector = (...styles) =>
-  styles.map(style => `.${style}`).join('');
+export const stubStyletron = () => {
+  beforeEach(() => sinon.stub(styletronReact, 'styled', C => C));
+  afterEach(() => styletronReact.styled.restore());
+};
 
 export const createMockComponent = name => {
   const Component = ({ children }) => <div className={name}>{children}</div>;
@@ -13,5 +15,3 @@ export const createMockComponent = name => {
 
   return Component;
 };
-
-export default { render };
