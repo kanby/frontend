@@ -5,7 +5,7 @@ import AppTemplate from 'server/templates/app';
 export default (ctx, next) => {
   if (ctx.state.tree) {
     ctx.body = renderToStaticMarkup(
-      <AppTemplate title="Kanby" body={renderToString(ctx.state.tree)} />,
+      <AppTemplate title="Kanby" body={renderToString(ctx.state.tree)} state={ctx.state.store.getState()}/>,
     );
 
     ctx.status = 200;

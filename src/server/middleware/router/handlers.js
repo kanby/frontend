@@ -4,10 +4,7 @@ import createStore from 'shared/create-store';
 
 export const matchApplicationRoutes = (ctx, next) => {
   const memoryHistory = createMemoryHistory(ctx.url);
-  const { history, store } = createStore({
-    history: memoryHistory,
-    initialState: {},
-  });
+  const { history, store } = createStore({ history: memoryHistory });
 
   match({ history, routes, location: ctx.url }, (
     error,

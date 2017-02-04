@@ -2,6 +2,7 @@
 
 import React from 'react';
 import config from 'server/config';
+import encode from 'ent/encode';
 import path from 'path';
 
 const assetPath = (asset: string) => {
@@ -22,9 +23,12 @@ type AppTemplateProps = {
   body: string,
   locale: string,
   title: string,
+  state: Object,
 };
 
-const AppTemplate = ({ locale = 'en', title, body }: AppTemplateProps) => (
+const escapeState = (state) => encode(JSON.stringify(state));
+
+const AppTemplate = ({ locale = 'en', title, body, state }: AppTemplateProps) => (
   <html lang={locale}>
     <head>
       <meta charSet="utf-8" />
@@ -32,6 +36,7 @@ const AppTemplate = ({ locale = 'en', title, body }: AppTemplateProps) => (
       {stylesheet(config.get('environment'))}
     </head>
     <body>
+      <script id="application:state" type="text/plain" dangerouslySetInnerHTML={{ __html: escapeState(state) }}></script>
       <div id="application" dangerouslySetInnerHTML={{ __html: body }} />
       <script type="text/javascript" src={assetPath('client.js')} />
     </body>

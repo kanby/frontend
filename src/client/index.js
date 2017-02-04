@@ -1,5 +1,6 @@
 import 'nodent-runtime';
 import config from 'client/config';
+import decode from 'ent/decode';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -7,15 +8,18 @@ import { match, Router, Route, browserHistory } from 'react-router';
 import createStore from 'shared/create-store';
 import routes from 'shared/routes';
 
-const initialState = {}; // TODO: Read server-sent state here.
+const initialState = JSON.parse(decode(document.getElementById('application:state').innerText)); // TODO: Read server-sent state here.
+
 const { history, store } = createStore({
   history: browserHistory,
   initialState,
 });
 
 if (config.get('environment') === 'development') {
+  console.log('initial state:', store.getState());
+
   store.subscribe(() => {
-    console.log(store.getState());
+    console.log('state update:', store.getState());
   });
 }
 
