@@ -1,6 +1,5 @@
 import React from 'react';
-import Layout from 'compositions/layout';
 
-const BoardsPage = () => <Layout>Boards</Layout>;
+const BoardsPage = () => <span>Boards</span>;
 
 export default BoardsPage;

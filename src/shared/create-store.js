@@ -1,7 +1,12 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
+import { routerReducer, syncHistoryWithStore } from 'react-router-redux';
 
-const reducer = state => state;
+export default ({ history, initialState }) => {
+  const reducer = combineReducers({
+    routing: routerReducer
+  });
 
-export default initialState => {
-  return createStore(reducer, initialState);
+  const store = createStore(reducer, initialState);
+
+  return { history: syncHistoryWithStore(history, store), store };
 };

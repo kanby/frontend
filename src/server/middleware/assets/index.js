@@ -3,7 +3,7 @@
 import koaStatic from 'koa-static';
 import mount from 'koa-mount';
 import path from 'path';
-import config from '../config';
+import config from '../../config';
 
 const assetMountPoint = path.join('/', config.get('assets/directory'));
 const staticMiddleware = koaStatic(config.get('assets/path'), { defer: false });

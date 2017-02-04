@@ -1,22 +1,15 @@
 import React from 'react';
-import { Provider as StoreProvider } from 'react-redux';
-import RoutingProvider from 'shared/routing/provider';
-import createStore from 'shared/create-store';
-import { getRoutingProp } from 'shared/routing';
+import { Provider } from 'react-redux';
+import { RouterContext } from 'react-router';
 
 export default (ctx, next) => {
-  if (ctx.state.matchedRoute) {
-    const { route } = ctx.state.matchedRoute;
-    const Component = route.component;
-
-    const store = createStore();
+  if (ctx.state.renderProps) {
+    const store = ctx.state.store;
 
     ctx.state.tree = (
-      <StoreProvider store={store}>
-        <RoutingProvider routing={getRoutingProp(ctx.state.matchedRoute)}>
-          <Component />
-        </RoutingProvider>
-      </StoreProvider>
+      <Provider store={store}>
+        <RouterContext {...ctx.state.renderProps} />
+      </Provider>
     );
   }
 

@@ -2,7 +2,6 @@ import Koa from 'koa';
 
 import config from 'server/config';
 import { render, router, logger, assets, providers } from './middleware';
-import routes from 'shared/routing/routes';
 import { log } from './util';
 
 log(`Server loading [env: '${config.get('environment')}']`);

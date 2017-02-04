@@ -1,14 +1,14 @@
+import config from 'client/config';
 import React from 'react';
 import { render } from 'react-dom';
-import { match, getRoutingProp } from 'shared/routing';
-import RoutingProvider from 'shared/routing/provider';
-import appRoutes from 'shared/routing/routes';
-import { Provider as StoreProvider } from 'react-redux';
+import { Provider } from 'react-redux';
+import { match, Router, Route, browserHistory } from 'react-router';
 import createStore from 'shared/create-store';
-import config from 'client/config';
+import routes from 'shared/routes';
+console.log('hello, world');
 
 const initialState = {}; // TODO: Read server-sent state here.
-const store = createStore(initialState);
+const { history, store } = createStore({ history: browserHistory, initialState });
 
 if (config.get('environment') === 'development') {
   store.subscribe(() => {
@@ -17,27 +17,27 @@ if (config.get('environment') === 'development') {
 }
 
 const renderApplication = (routes, url) => {
-  const matched = match(routes, url);
+  match({ history, routes, location: url }, (error, redirectLocation, renderProps) => {
+    if (error) {
+      console.error(error.message)
+    } else if (redirectLocation) {
+      window.location = redirectLocation.pathname + redirectLocation.search;
+    } else if (renderProps) {
+      const App = (
+        <Provider store={store}>
+          <Router {...renderProps} />
+        </Provider>
+      );
 
-  if (matched) {
-    const Component = matched.route.component;
-
-    const App = (
-      <StoreProvider store={store}>
-        <RoutingProvider routing={getRoutingProp(matched)}>
-          <Component />
-        </RoutingProvider>
-      </StoreProvider>
-    );
-
-    render(App, document.getElementById('application'));
-  }
+      render(App, document.getElementById('application'));
+    }
+  })
 };
 
 const currentPath = () =>
   `${window.location.pathname}${window.location.search}${window.location.hash}`;
 
-renderApplication(appRoutes, currentPath());
+renderApplication(routes, currentPath());
 
 if (module.hot) {
   module.hot.accept('shared/routing/routes', () => {
