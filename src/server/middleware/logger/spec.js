@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import logger from './logger';
+import logger from './index';
 
-describe('server:middleware/logger', () => {
+describe('server/middleware/logger', () => {
   it('logs request method', () => {
     const method = 'GET';
     const stub = sinon.stub(console, 'log');
