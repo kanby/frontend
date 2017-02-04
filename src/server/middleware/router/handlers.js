@@ -4,9 +4,16 @@ import createStore from 'shared/create-store';
 
 export const matchApplicationRoutes = (ctx, next) => {
   const memoryHistory = createMemoryHistory(ctx.url);
-  const { history, store } = createStore({ history: memoryHistory, initialState: {} });
+  const { history, store } = createStore({
+    history: memoryHistory,
+    initialState: {},
+  });
 
-  match({ history, routes, location: ctx.url }, (error, redirectLocation, renderProps) => {
+  match({ history, routes, location: ctx.url }, (
+    error,
+    redirectLocation,
+    renderProps,
+  ) => {
     if (error) {
       ctx.throw(500, error.message);
     } else if (redirectLocation) {
@@ -19,6 +26,6 @@ export const matchApplicationRoutes = (ctx, next) => {
 
     next();
   });
-}
+};
 
 export const healthCheck = ctx => ctx.status = 200;

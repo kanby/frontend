@@ -5,10 +5,12 @@ import { Provider } from 'react-redux';
 import { match, Router, Route, browserHistory } from 'react-router';
 import createStore from 'shared/create-store';
 import routes from 'shared/routes';
-console.log('hello, world');
 
 const initialState = {}; // TODO: Read server-sent state here.
-const { history, store } = createStore({ history: browserHistory, initialState });
+const { history, store } = createStore({
+  history: browserHistory,
+  initialState,
+});
 
 if (config.get('environment') === 'development') {
   store.subscribe(() => {
@@ -17,9 +19,13 @@ if (config.get('environment') === 'development') {
 }
 
 const renderApplication = (routes, url) => {
-  match({ history, routes, location: url }, (error, redirectLocation, renderProps) => {
+  match({ history, routes, location: url }, (
+    error,
+    redirectLocation,
+    renderProps,
+  ) => {
     if (error) {
-      console.error(error.message)
+      console.error(error.message);
     } else if (redirectLocation) {
       window.location = redirectLocation.pathname + redirectLocation.search;
     } else if (renderProps) {
@@ -31,7 +37,7 @@ const renderApplication = (routes, url) => {
 
       render(App, document.getElementById('application'));
     }
-  })
+  });
 };
 
 const currentPath = () =>

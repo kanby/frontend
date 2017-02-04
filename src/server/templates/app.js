@@ -24,9 +24,7 @@ type AppTemplateProps = {
   title: string,
 };
 
-const AppTemplate = (
-  { locale = 'en', title, body }: AppTemplateProps,
-) => (
+const AppTemplate = ({ locale = 'en', title, body }: AppTemplateProps) => (
   <html lang={locale}>
     <head>
       <meta charSet="utf-8" />

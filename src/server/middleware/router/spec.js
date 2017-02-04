@@ -1,11 +1,13 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import * as routing from 'shared/routing';
-import routes from 'shared/routing/routes';
+import * as reactRouter from 'react-router';
+import routes from 'shared/routes';
 import sinon from 'sinon';
+import * as createStoreModule from 'shared/create-store';
 
-import router from './index';
 import * as handlers from './handlers';
+
+const stubMatch = handler => sinon.stub(reactRouter, 'match', handler);
 
 describe('server/middleware/router', () => {
   describe('handlers:health-check', () => {
@@ -17,37 +19,108 @@ describe('server/middleware/router', () => {
   });
 
   describe('handlers:match-application-routes', () => {
-    let match, next;
+    let createStore, match, next;
 
     beforeEach(() => {
-      match = sinon.stub(routing, 'match');
+      createStore = sinon
+        .stub(createStoreModule, 'default')
+        .returns({ history: 'history', store: 'store' });
       next = sinon.stub();
     });
 
     afterEach(() => {
-      match.restore();
+      if (reactRouter.match.restore) reactRouter.match.restore();
+      createStore.restore();
     });
 
-    it('calls next middleware in stack', () => {
-      next.returns('next!')
-      const ret = handlers.matchApplicationRoutes({}, next);
-      expect(next).to.have.been.calledOnce;
-      expect(ret).to.equal('next!');
+    it('calls next middleware in stack', done => {
+      stubMatch((o, cbk) => {
+        cbk(null, null, null);
+        expect(next).to.have.been.calledOnce;
+        done();
+      });
+
+      handlers.matchApplicationRoutes({ url: '/test' }, next);
     });
 
-    it('adds matched component to request state when url matches a route', () => {
+    it('calls match with history, location and routes', done => {
       const ctx = { url: '/test', state: {} };
-      match.returns('matched-route');
+      const renderProps = { matched: true };
+
+      stubMatch((o, cbk) => {
+        cbk(null, null, renderProps);
+        const [opts] = reactRouter.match.firstCall.args;
+        expect(opts.location).to.equal(ctx.url);
+        expect(opts.history).to.be.defined;
+        expect(opts.routes).to.equal(routes);
+        done();
+      });
+
       handlers.matchApplicationRoutes(ctx, next);
-      expect(match).to.have.been.calledWith(routes, ctx.url);
-      expect(ctx.state.matchedRoute).to.equal('matched-route');
     });
 
-    it('does not set any state if route not found', () => {
+    it('adds renderProps to request state when a route is matched', done => {
       const ctx = { url: '/test', state: {} };
-      match.returns(null);
+      const renderProps = { matched: true };
+
+      stubMatch((o, cbk) => {
+        cbk(null, null, renderProps);
+        expect(ctx.state.renderProps).to.equal(renderProps);
+        done();
+      });
+
       handlers.matchApplicationRoutes(ctx, next);
-      expect(ctx).to.deep.eq({ url: '/test', state: {} });
     });
-  })
-})
+
+    it('adds a store to request state when a route is matched', done => {
+      const ctx = { url: '/test', state: {} };
+      const renderProps = { matched: true };
+
+      stubMatch((o, cbk) => {
+        cbk(null, null, renderProps);
+        expect(createStore).to.have.been.calledOnce;
+        expect(ctx.state.store).to.equal('store');
+        done();
+      });
+
+      handlers.matchApplicationRoutes(ctx, next);
+    });
+
+    it('does not set any state if route not found', done => {
+      const ctx = { url: '/test', state: {} };
+
+      stubMatch((o, cbk) => {
+        cbk(null, null, null);
+        expect(ctx.state).to.deep.equal({});
+        done();
+      });
+
+      handlers.matchApplicationRoutes(ctx, next);
+    });
+
+    it('calls ctx.throw with a 500 error if an error is returned', done => {
+      const ctx = { url: '/test', throw: sinon.stub() };
+
+      stubMatch((o, cbk) => {
+        cbk({ message: 'test error' }, null, null);
+        expect(ctx.throw).to.have.been.calledWith(500, 'test error');
+        done();
+      });
+
+      handlers.matchApplicationRoutes(ctx, next);
+    });
+
+    it('sets ctx.url and ctx.status if a redirect is returned', done => {
+      const ctx = { url: '/test' };
+
+      stubMatch((o, cbk) => {
+        cbk(null, { pathname: '/redirect', search: '?test=12' }, null);
+        expect(ctx.url).to.equal('/redirect?test=12');
+        expect(ctx.status).to.equal(307);
+        done();
+      });
+
+      handlers.matchApplicationRoutes(ctx, next);
+    });
+  });
+});
