@@ -26,7 +26,7 @@ const conf = {
       'process.env.COMMIT_SHA': '"' + sha + '"',
     }),
   ],
-  devtool: production ? 'eval' : 'source-map',
+  devtool: 'source-map'
 };
 
 const publicPath = '/assets-' + sha + '/';
@@ -46,9 +46,12 @@ const configs = [merge(conf, {
           test: /\.js$/,
           loader: 'babel-loader',
           query: {
-            presets: ['node7', 'react'],
+            presets: [
+              ['env', { exclude: ['transform-async-to-generator'], targets: { browsers: "last 2 versions" } }],
+              'react'
+            ],
             plugins: [
-              'async-to-promises',
+              ['fast-async', { useRuntimeModule: true }],
               'transform-class-properties',
               'transform-flow-strip-types',
             ],
@@ -84,9 +87,12 @@ const configs = [merge(conf, {
           test: /\.js$/,
           loader: 'babel-loader',
           query: {
-            presets: ['latest', 'react'],
+            presets: [
+              ['env', { exclude: ['transform-async-to-generator'], targets: { node: true } }],
+              'react'
+            ],
             plugins: [
-              'async-to-promises',
+              ['fast-async', { useRuntimeModule: true }],
               'transform-class-properties',
               'transform-flow-strip-types',
             ],
@@ -113,6 +119,7 @@ const configs = [merge(conf, {
     plugins: [
       new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.DefinePlugin({
+        'config.get(\'environment\')': JSON.stringify(process.env.NODE_ENV),
         'process.env': {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         },
@@ -123,8 +130,10 @@ const configs = [merge(conf, {
 const clientCssLoader = configs[1].module.rules.find(l => l.test.test('.css'));
 
 if (production) {
-  configs[1].plugins.push(new webpack.optimize.UglifyJsPlugin());
-  configs[1].plugins.push(new ExtractTextPlugin('styles-[contenthash:5].css'));
+  configs[1].module.rules
+    .find(l => l.loader === 'babel-loader')
+    .query.presets.push('babili');
+  configs[1].plugins.push(new ExtractTextPlugin('style.css'));
   clientCssLoader.loader = ExtractTextPlugin.extract(
     clientCssLoader.use.concat([])
   );

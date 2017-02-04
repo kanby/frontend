@@ -14,6 +14,8 @@ const serverConfig = webpackConfig.find(c => c.name === 'server');
 const server = new Koa();
 const serverPort = 3000;
 
+const built = { client: false, server: false };
+
 const config = Object.assign({}, clientConfig, {
   entry: Object.assign({}, clientConfig.entry, {
     client: ['webpack-hot-middleware/client'].concat(clientConfig.entry.client),
@@ -33,6 +35,20 @@ const devMiddleware = connect(webpackDevMiddleware(clientCompiler, {
   }));
 
 const hotMiddleware = connect(webpackHotMiddleware(clientCompiler));
+
+const waitForBuild = (done) => {
+  if (built.client && built.server) {
+    done();
+  }
+
+  setTimeout(() => waitForBuild(done), 200);
+}
+
+server.use((ctx, next) => {
+  return new Promise((res, rej) => {
+    waitForBuild(res);
+  }).then(next);
+});
 
 server.use((ctx, next) => {
   ctx.res.statusCode = 200;
@@ -70,6 +86,16 @@ const handleError = err =>
 const handleWarning = warning =>
   console.log(chalk.white(chalk.red('COMPILER WARNING:'), warning));
 
+clientCompiler.watch({}, (err, stats) => {
+  if (err) throw err;
+  if (stats.hasErrors()) return stats.toJson().errors.forEach(handleError);
+  if (stats.hasWarnings()) stats.toJson().warnings.forEach(handleWarning);
+
+  built.client = true;
+
+  return console.log(chalk.white(chalk.yellow('INFO:'), 'Client bundle compiled.'));
+});
+
 serverCompiler.watch({}, (err, stats) => {
   if (err) throw err;
   if (stats.hasErrors()) return stats.toJson().errors.forEach(handleError);
@@ -87,6 +113,8 @@ serverCompiler.watch({}, (err, stats) => {
   serverMiddleware = mount(require(serverFile).default);
 
   server.use(serverMiddleware);
+
+  built.server = true;
 
   if (exists)
     return console.log(chalk.white(chalk.yellow('INFO:'), 'Server reloaded.'));

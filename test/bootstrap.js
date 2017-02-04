@@ -2,15 +2,17 @@ const postcss = require('../postcss.config.js');
 const webpackConfig = require('../webpack.config.js');
 const aliasPlugin = require('./postcss-alias');
 
-require('babel-core/register')({
-  presets: ['node7', 'react'],
-  plugins: [
-    'async-to-promises',
-    'transform-class-properties',
-    'transform-flow-strip-types',
-    'webpack-alias',
-  ],
-});
+const babelOptions = Object.assign({}, webpackConfig
+  .find(c => c.name === 'server')
+  .module.rules.find(l => l.loader === 'babel-loader')
+  .query
+);
+
+babelOptions.plugins = babelOptions.plugins.concat([
+  'babel-plugin-webpack-alias'
+]);
+
+require('babel-core/register')(babelOptions);
 
 require('css-modules-require-hook')({
   generateScopedName: postcss.generateScopedName,

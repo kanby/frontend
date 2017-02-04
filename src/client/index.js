@@ -1,3 +1,4 @@
+import 'nodent-runtime';
 import config from 'client/config';
 import React from 'react';
 import { render } from 'react-dom';
@@ -46,8 +47,8 @@ const currentPath = () =>
 renderApplication(routes, currentPath());
 
 if (module.hot) {
-  module.hot.accept('shared/routing/routes', () => {
-    const newRoutes = require('shared/routing/routes').default;
+  module.hot.accept('shared/routes', () => {
+    const newRoutes = require('shared/routes').default;
     renderApplication(newRoutes, currentPath());
   });
 }

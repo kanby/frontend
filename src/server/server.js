@@ -1,3 +1,4 @@
+import 'nodent-runtime';
 import Koa from 'koa';
 
 import config from 'server/config';
