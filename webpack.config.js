@@ -49,6 +49,7 @@ const configs = [merge(conf, {
             presets: ['node7', 'react'],
             plugins: [
               'async-to-promises',
+              'transform-class-properties',
               'transform-flow-strip-types',
             ],
           },
@@ -86,6 +87,7 @@ const configs = [merge(conf, {
             presets: ['latest', 'react'],
             plugins: [
               'async-to-promises',
+              'transform-class-properties',
               'transform-flow-strip-types',
             ],
           },

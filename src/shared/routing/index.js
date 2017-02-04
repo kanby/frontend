@@ -30,7 +30,7 @@ const match = (routes, path) => {
   return null;
 };
 
-const getRoutingProps = matched => {
+const getRoutingProp = matched => {
   const { route, url, params } = matched;
 
   return {
@@ -40,4 +40,4 @@ const getRoutingProps = matched => {
   };
 };
 
-export { match, route };
+export { match, route, getRoutingProp };

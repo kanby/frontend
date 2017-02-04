@@ -3,29 +3,20 @@
 import React from 'react';
 import Route from 'route-parser';
 
-type RoutingProviderProps = {
-  children: React$Element<any>,
-  routingProps: {
-    Route: Route,
-    url: string,
-    params: Object,
-  },
-};
-
-const RoutingProvider = ({ routingProps, children }: RoutingProviderProps) =>
-  children;
-
-RoutingProvider.childContextTypes = {
-  routing: {
-    Route: React.PropTypes.instanceOf(Route),
-    url: React.PropTypes.string,
-    params: React.PropTypes.object,
-  },
-};
-
-RoutingProvider.getChildContext = ({ routingProps }) => {
-  routing:
-  routingProps;
-};
+class RoutingProvider extends React.Component {
+  static childContextTypes = {
+    routing: React.PropTypes.shape({
+      Route: React.PropTypes.instanceOf(Route),
+      url: React.PropTypes.string,
+      params: React.PropTypes.object,
+    }),
+  };
+  getChildContext = () => ({
+    routing: this.props.routing,
+  });
+  render() {
+    return this.props.children;
+  }
+}
 
 export default RoutingProvider;

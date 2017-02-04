@@ -20,13 +20,12 @@ const stylesheet = (env: string) => {
 
 type AppTemplateProps = {
   body: string,
-  children: any,
   locale: string,
   title: string,
 };
 
 const AppTemplate = (
-  { children, locale = 'en', title, body }: AppTemplateProps,
+  { locale = 'en', title, body }: AppTemplateProps,
 ) => (
   <html lang={locale}>
     <head>

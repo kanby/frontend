@@ -1,12 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { match, getRoutingProp } from 'shared/routing';
+import RoutingProvider from 'shared/routing/provider';
 import appRoutes from 'shared/routing/routes';
-import { match } from 'shared/routing';
-import { Provider } from 'react-redux';
+import { Provider as StoreProvider } from 'react-redux';
 import createStore from 'shared/create-store';
 import config from 'client/config';
 
-const initialState = {};
+const initialState = {}; // TODO: Read server-sent state here.
 const store = createStore(initialState);
 
 if (config.get('environment') === 'development') {
@@ -22,9 +23,11 @@ const renderApplication = (routes, url) => {
     const { route } = routingProps;
 
     const App = (
-      <Provider store={store}>
-        <route.component routing={routingProps} />
-      </Provider>
+      <StoreProvider store={store}>
+        <RoutingProvider routing={getRoutingProp(routingProps)}>
+          <route.component />
+        </RoutingProvider>
+      </StoreProvider>
     );
 
     render(App, document.getElementById('application'));

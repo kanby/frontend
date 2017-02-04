@@ -6,32 +6,18 @@ import AppTemplate from '../templates/app';
 import { match } from 'shared/routing';
 import routes from 'shared/routing/routes';
 
-const routeHandler = rtr => route => {
-  rtr.get(route.path, async (ctx, next) => {
-    // Still get params from route.Route
-    const routingProps = route.Route.match(ctx.url);
+const router = new Router();
 
-    const body = renderToString(<route.component routing={routingProps} />);
+router.get('/health', ctx => {
+  ctx.status = 200;
+});
 
-    ctx.body = renderToStaticMarkup(
-      <AppTemplate locale="en" title="Kanby" body={body} />,
-    );
+router.get('*', (ctx, next) => {
+  const matched = match(routes, ctx.url);
 
-    ctx.status = 200;
-  });
-};
+  if (matched) ctx.state.matchedRoute = matched;
 
-const router = routes => {
-  const rtr = new Router();
-
-  rtr.get('/health', ctx => {
-    ctx.status = 200;
-  });
-
-  const handler = routeHandler(rtr);
-  routes.forEach(handler);
-
-  return rtr;
-};
+  return next();
+});
 
 export default router;

@@ -6,6 +6,7 @@ require('babel-core/register')({
   presets: ['node7', 'react'],
   plugins: [
     'async-to-promises',
+    'transform-class-properties',
     'transform-flow-strip-types',
     'webpack-alias',
   ],
