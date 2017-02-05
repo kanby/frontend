@@ -23,6 +23,6 @@ const Lane = ({ name, children }) => (
     <Title>{name}</Title>
     <div>{children}</div>
   </Wrapper>
-)
+);
 
 export default Lane;

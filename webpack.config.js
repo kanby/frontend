@@ -46,7 +46,7 @@ const configs = [merge(conf, {
           loader: 'babel-loader',
           query: {
             presets: [
-              ['env', { exclude: ['transform-async-to-generator'], targets: { browsers: "last 2 versions" } }],
+              ['env', { exclude: ['transform-async-to-generator'], targets: { node: true } }],
               'react'
             ],
             plugins: [
@@ -81,7 +81,7 @@ const configs = [merge(conf, {
           loader: 'babel-loader',
           query: {
             presets: [
-              ['env', { exclude: ['transform-async-to-generator'], targets: { node: true } }],
+              ['env', { exclude: ['transform-async-to-generator'], targets: { browsers: "last 2 versions" } }],
               'react'
             ],
             plugins: [

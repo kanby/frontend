@@ -26,10 +26,10 @@ const BoardPage = (props, ctx) => {
       <Lane name="Done For Real" />
     </Outer>
   );
-}
+};
 
 BoardPage.contextTypes = {
   routing: React.PropTypes.object,
-}
+};
 
 export default BoardPage;
