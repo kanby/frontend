@@ -30,6 +30,7 @@
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
     "styletron-client": "^2.5.1",
+    "styletron-connect": "^0.0.5",
     "styletron-react": "^2.5.2",
     "styletron-server": "^2.5.1"
   },

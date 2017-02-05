@@ -1,5 +1,5 @@
 import React from 'react';
-import mapStyles from 'shared/styles/styletron-map';
+import connectStyles from 'styletron-connect';
 import { colors, spacing } from 'shared/styles';
 import { darken } from 'shared/styles/color-helpers';
 import merge from 'lodash/merge';
@@ -30,4 +30,4 @@ const styles = {
   },
 };
 
-export default mapStyles(Lane, styles);
+export default connectStyles(Lane, styles);

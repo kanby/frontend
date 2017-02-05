@@ -3510,6 +3510,12 @@ styletron-client@^2.5.1:
   dependencies:
     styletron-core "^2.5.1"
 
+styletron-connect@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/styletron-connect/-/styletron-connect-0.0.5.tgz#ac930de941e63c6d01763333778af9af86321afa"
+  dependencies:
+    styletron-utils "^2.5.1"
+
 styletron-core@^2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/styletron-core/-/styletron-core-2.5.1.tgz#bf9e8aebc41461b81fdd22b1062f6e25862286fd"
