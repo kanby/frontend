@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Link } from 'react-router';
 import { Container, Row, Col } from 'components/grid';
-// import styles from './styles.css';
 import { styled } from 'styletron-react';
 import { colors, spacing } from 'shared/styles';
 
