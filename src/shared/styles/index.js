@@ -1,6 +1,13 @@
 /* @flow */
 
-const colors = {
+import spacingHelpers from './spacing-helpers';
+
+export const grid = {
+  maxWidth: 1400,
+  cols: 12,
+};
+
+export const colors = {
   black: '#223140',
   green: '#19DD89',
   orange: '#FF6102',
@@ -9,32 +16,23 @@ const colors = {
   white: '#FAFAFA',
 };
 
-const breakpoints = {
+export const breakpoints = {
   medium: 768,
   large: 1200,
 };
 
-const media = {
+export const mediaQueries = {
   medium: `@media only screen and (min-width: ${breakpoints.medium}px)`,
   large: `@media only screen and (min-width: ${breakpoints.large}px)`,
 };
 
-const spacing = {
+const spacingValues = {
   small: 8,
   medium: 12,
   large: 16,
-  paddingVertical: (size: number = 1) => ({
-    paddingTop: `${spacing.small * size}px`,
-    paddingBottom: `${spacing.small * size}px`,
-    [media.medium]: {
-      paddingTop: `${spacing.medium * size}px`,
-      paddingBottom: `${spacing.medium * size}px`,
-    },
-    [media.large]: {
-      paddingTop: `${spacing.large * size}px`,
-      paddingBottom: `${spacing.large * size}px`,
-    },
-  }),
 };
 
-export { breakpoints, colors, spacing, media };
+export const spacing = {
+  ...spacingValues,
+  ...spacingHelpers({ spacing: spacingValues, mediaQueries }),
+};
