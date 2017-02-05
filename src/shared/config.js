@@ -15,7 +15,7 @@ config.set(
 
 config.set(
   'assets/directory',
-  `assets-${process.env.COMMIT_SHA}`,
+  `/assets-${process.env.COMMIT_SHA}`,
   flow(isString, validator('not a string')),
 );
 

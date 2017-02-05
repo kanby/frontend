@@ -13,7 +13,7 @@ const List = styled('ul', {
 });
 
 const Nav = styled('nav', {
-  backgroundColor: colors.slate,
+  backgroundColor: colors.black,
   ...spacing.paddingVertical(),
 });
 
