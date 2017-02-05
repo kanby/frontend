@@ -1,28 +1,33 @@
 import React from 'react';
-import { styled } from 'styletron-react';
+import mapStyles from 'shared/styles/styletron-map';
 import { colors, spacing } from 'shared/styles';
 import { darken } from 'shared/styles/color-helpers';
+import merge from 'lodash/merge';
 
-const Wrapper = styled('div', {
-  backgroundColor: colors.white,
-  border: `1px solid ${darken(colors.white, 0.1)}`,
-  display: 'inline-block',
-  width: '200px',
-  ':first-child': { marginLeft: 0 },
-  ':last-child': { marginRight: 0 },
-  ...spacing.marginHorizontal(),
-});
-
-const Title = styled('h5', {
-  fontFamily: 'Lobster Two',
-  ...spacing.margin(),
-});
-
-const Lane = ({ name, children }) => (
-  <Wrapper>
-    <Title>{name}</Title>
+const Lane = ({ name, styles, children }) => (
+  <div className={styles.wrapper}>
+    <h3 className={styles.title}>{name}</h3>
     <div>{children}</div>
-  </Wrapper>
+  </div>
 );
 
-export default Lane;
+const styles = {
+  wrapper: {
+    backgroundColor: colors.white,
+    border: `1px solid ${darken(colors.white, 0.1)}`,
+    display: 'inline-block',
+    width: '200px',
+    ':first-child': { marginLeft: 0 },
+    ':last-child': { marginRight: 0 },
+    ...merge(
+      spacing.marginHorizontal(),
+      spacing.padding(),
+    ),
+  },
+  title: {
+    fontFamily: 'Lobster Two',
+    ...spacing.margin(0),
+  },
+};
+
+export default mapStyles(Lane, styles);
