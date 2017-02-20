@@ -1,3 +1,4 @@
+import * as configs from './configs';
 import config from './config';
 import get from 'lodash/get';
 import merge from 'webpack-merge';
@@ -10,62 +11,15 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 import * as loaders from './loaders';
 
-const cache = {};
-const production = process.env.NODE_ENV === 'production';
-
+const root = config.get('root');
 const pub = '/assets-' + config.get('commit-sha') + '/';
 
 const conf = ({ extend, options }) => {
-  const { root } = options;
-  const c = merge({
-    cache: cache,
-    context: path.join(root, 'src'),
-    output: {
-      filename: '[name].js',
-      path: 'dist',
-    },
-    resolve: {
-      alias: {
-        client: path.resolve(root, 'src', 'client'),
-        components: path.resolve(root, 'src', 'shared', 'components'),
-        compositions: path.resolve(root, 'src', 'shared', 'compositions'),
-        server: path.resolve(root, 'src', 'server'),
-        shared: path.resolve(root, 'src', 'shared'),
-        test: path.resolve(root, 'test'),
-      },
-    },
-    module: {
-      rules: [
-        loaders.babel(options),
-      ],
-    },
-    plugins: [
-      new webpack.optimize.OccurrenceOrderPlugin(),
-      new webpack.DefinePlugin({
-        'process.env.COMMIT_SHA': JSON.stringify(config.get('commit-sha')),
-      }),
-    ],
-    devtool: 'source-map'
-  }, extend);
-
-  if (production) {
-    c.module.rules.unshift({
-      test: /\.js$/,
-      loader: 'babel-loader',
-      include: [
-        path.resolve(root, 'src'),
-        path.resolve(root, 'node_modules')
-      ],
-      query: {
-        presets: ['babili'],
-      },
-    })
-  }
-
+  const c = merge(configs.base(options), extend);
   return c;
 };
 
-const configs = root => [
+export default [
   conf({
     extend: {
       name: 'server',
@@ -84,7 +38,6 @@ const configs = root => [
       babel: {
         targets: { node: true },
       },
-      root
     }
   }),
   conf({
@@ -108,9 +61,6 @@ const configs = root => [
       babel: {
         targets: { browsers: "last 2 versions" },
       },
-      root
     },
   }),
 ];
-
-export default configs;

@@ -1,10 +1,11 @@
+import config from '../config';
 import get from 'lodash/get';
 import path from 'path';
 
 const babelLoader = (options = {}) => ({
   test: /\.js$/,
   loader: 'babel-loader',
-  include: [ path.resolve(__dirname, '../../src') ],
+  include: [ path.resolve(config.get('root'), 'src') ],
   query: {
     env: {
       production: {
