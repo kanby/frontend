@@ -1,87 +1,52 @@
-const merge = require('webpack-merge');
-const webpack = require('webpack');
-const path = require('path');
-const nodeExternals = require('webpack-node-externals');
+const get = require('lodash/get');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const merge = require('webpack-merge');
+const nodeExternals = require('webpack-node-externals');
+const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
 
-const sha = require('child_process').execSync('git rev-parse HEAD').toString().trim().substr(0, 5);
+const cache = {};
 const production = process.env.NODE_ENV === 'production';
-const manifestCache = {};
+const sha = require('child_process').execSync('git rev-parse HEAD').toString().trim().substr(0, 5);
 
-const conf = {
-  context: __dirname,
-  resolve: {
-    alias: {
-      client: path.resolve(__dirname, 'src', 'client'),
-      components: path.resolve(__dirname, 'src', 'shared', 'components'),
-      compositions: path.resolve(__dirname, 'src', 'shared', 'compositions'),
-      server: path.resolve(__dirname, 'src', 'server'),
-      shared: path.resolve(__dirname, 'src', 'shared'),
-      test: path.resolve(__dirname, 'test'),
-    },
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.COMMIT_SHA': '"' + sha + '"',
-    }),
-  ],
-  devtool: 'source-map'
-};
+const pub = '/assets-' + sha + '/';
 
-const publicPath = '/assets-' + sha + '/';
-
-const configs = [merge(conf, {
-    name: 'server',
-    entry: {
-      server: path.join(__dirname, 'src', 'server', 'index.js'),
-    },
+const conf = ({ extend, options }) => {
+  const c = merge({
+    cache: cache,
+    context: __dirname,
     output: {
       filename: '[name].js',
       path: path.join(__dirname, 'dist'),
     },
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          loader: 'babel-loader',
-          query: {
-            presets: [
-              ['env', { exclude: ['transform-async-to-generator'], targets: { node: true } }],
-              'react'
-            ],
-            plugins: [
-              ['fast-async', { useRuntimeModule: true }],
-              'transform-object-rest-spread',
-              'transform-class-properties',
-              'transform-flow-strip-types',
-            ],
-          },
-        },
-      ],
-    },
-    node: {
-      __dirname: true,
-    },
-    externals: [nodeExternals()],
-    target: 'node',
-  }), merge(conf, {
-    name: 'client',
-    entry: {
-      client: path.join(__dirname, 'src', 'client', 'index.js'),
-    },
-    output: {
-      filename: '[name].js',
-      publicPath,
-      path: path.join(__dirname, 'dist', publicPath),
+    resolve: {
+      alias: {
+        client: path.resolve(__dirname, 'src', 'client'),
+        components: path.resolve(__dirname, 'src', 'shared', 'components'),
+        compositions: path.resolve(__dirname, 'src', 'shared', 'compositions'),
+        server: path.resolve(__dirname, 'src', 'server'),
+        shared: path.resolve(__dirname, 'src', 'shared'),
+        test: path.resolve(__dirname, 'test'),
+      },
     },
     module: {
       rules: [
         {
           test: /\.js$/,
           loader: 'babel-loader',
+          include: [ path.resolve(__dirname, 'src') ],
           query: {
+            env: {
+              production: {
+                presets: [ 'babili' ],
+              },
+            },
             presets: [
-              ['env', { exclude: ['transform-async-to-generator'], targets: { browsers: "last 2 versions" } }],
+              ['env', {
+                exclude: ['transform-async-to-generator'],
+                targets: get(options, 'babel.targets'),
+              }],
               'react'
             ],
             plugins: [
@@ -97,18 +62,73 @@ const configs = [merge(conf, {
     plugins: [
       new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.DefinePlugin({
-        'config.get(\'environment\')': JSON.stringify(process.env.NODE_ENV),
-        'process.env': {
-          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        },
+        'process.env.COMMIT_SHA': '"' + sha + '"',
       }),
     ],
-  })];
+    devtool: 'source-map'
+  }, extend);
 
-if (production) {
-  configs[1].module.rules
-    .find(l => l.loader === 'babel-loader')
-    .query.presets.push('babili');
-}
+  if (production) {
+    c.module.rules.unshift({
+      test: /\.js$/,
+      loader: 'babel-loader',
+      include: [
+        path.resolve(__dirname, 'src'),
+        path.resolve(__dirname, 'node_modules')
+      ],
+      query: {
+        presets: ['babili'],
+      },
+    })
+  }
+
+  return c;
+};
+
+const configs = [
+  conf({
+    extend: {
+      name: 'server',
+      entry: {
+        server: [ path.join(__dirname, 'src', 'server', 'index.js') ],
+      },
+      externals: [
+        nodeExternals(),
+      ],
+      node: {
+        __dirname: true,
+      },
+      target: 'node',
+    },
+    options: {
+      babel: {
+        targets: { node: true },
+      }
+    }
+  }),
+  conf({
+    extend: {
+      name: 'client',
+      entry: {
+        client: [ path.join(__dirname, 'src', 'client', 'index.js') ],
+      },
+      output: {
+        path: path.join(__dirname, 'dist', pub),
+        publicPath: pub,
+      },
+      plugins: [
+        new webpack.DefinePlugin({
+          'config.get(\'environment\')': JSON.stringify(process.env.NODE_ENV),
+          'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        }),
+      ],
+    },
+    options: {
+      babel: {
+        targets: { browsers: "last 2 versions" },
+      },
+    },
+  }),
+];
 
 module.exports = configs;

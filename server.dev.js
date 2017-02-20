@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const chalk = require('chalk');
 const path = require('path');
+const merge = require('webpack-merge');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -8,29 +9,25 @@ const webpackConfig = require('./webpack.config.js');
 const connect = require('koa-connect');
 const mount = require('koa-mount');
 
-const clientConfig = webpackConfig.find(c => c.name === 'client');
-const serverConfig = webpackConfig.find(c => c.name === 'server');
-
 const server = new Koa();
 const serverPort = 3000;
 
 const built = { client: false, server: false };
 
-const config = Object.assign({}, clientConfig, {
-  entry: Object.assign({}, clientConfig.entry, {
-    client: ['webpack-hot-middleware/client'].concat(clientConfig.entry.client),
-  }),
-  plugins: clientConfig.plugins.concat([
+const clientConfig = merge(webpackConfig.find(c => c.name === 'client'), {
+  entry: {
+    client: ['webpack-hot-middleware/client'],
+  },
+  plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-  ]),
+  ],
 });
 
-const clientCompiler = webpack(config);
+const clientCompiler = webpack(clientConfig);
 
 const devMiddleware = connect(webpackDevMiddleware(clientCompiler, {
-    noInfo: true,
-    quiet: true,
+    stats: 'minimal',
     publicPath: clientConfig.output.publicPath,
   }));
 
@@ -66,16 +63,20 @@ server.use((ctx, next) => {
 server.use(hotMiddleware);
 server.listen(serverPort);
 
-const serverCompiler = webpack(Object.assign({}, serverConfig, {
-    entry: { server: path.join(__dirname, 'src', 'server', 'server.js') },
-    output: Object.assign({}, serverConfig.output, {
+const serverConfig = merge(webpackConfig.find(c => c.name === 'server'), {
+    entry: {
+      server: path.join(__dirname, 'src', 'server', 'server.js'),
+    },
+    output: {
       libraryTarget: 'commonjs2',
-    }),
-  }));
+    },
+  });
+
+const serverCompiler = webpack(serverConfig);
 
 const serverFile = path.join(
   serverConfig.output.path,
-  serverConfig.output.filename.replace('[name]', 'server')
+  serverConfig.output.filename.replace('[name]', serverConfig.name)
 );
 
 let serverMiddleware;
