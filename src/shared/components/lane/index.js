@@ -1,5 +1,5 @@
 import React from 'react';
-import mapStyles from 'shared/styles/styletron-map';
+import connectStyles from 'styletron-connect';
 import { colors, spacing } from 'shared/styles';
 import { darken } from 'shared/styles/color-helpers';
 import merge from 'lodash/merge';
@@ -19,10 +19,7 @@ const styles = {
     width: '200px',
     ':first-child': { marginLeft: 0 },
     ':last-child': { marginRight: 0 },
-    ...merge(
-      spacing.marginHorizontal(),
-      spacing.padding(),
-    ),
+    ...merge(spacing.marginHorizontal(), spacing.padding()),
   },
   title: {
     fontFamily: 'Lobster Two',
@@ -30,4 +27,4 @@ const styles = {
   },
 };
 
-export default mapStyles(Lane, styles);
+export default connectStyles(Lane, styles);

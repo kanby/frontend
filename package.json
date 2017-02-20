@@ -3,7 +3,7 @@
     "build": "webpack --progress",
     "build:clean": "rm -rd dist/",
     "dev": "node server.dev.js",
-    "fmt": "prettier --single-quote --trailing-comma --parser flow --write 'src/**/*.js' 'test/utils.js'",
+    "fmt": "prettier --single-quote --trailing-comma=es5 --parser flow --write 'src/**/*.js' 'test/utils.js'",
     "start": "node dist/server.js",
     "test": "mocha",
     "test:watch": "mocha --watch",
@@ -30,6 +30,7 @@
     "react-router-redux": "^4.0.8",
     "redux": "^3.6.0",
     "styletron-client": "^2.5.1",
+    "styletron-connect": "^0.0.5",
     "styletron-react": "^2.5.2",
     "styletron-server": "^2.5.1"
   },

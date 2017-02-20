@@ -13,9 +13,7 @@ import { StyletronProvider } from 'styletron-react';
 const ROOT_NODE = document.getElementById('application');
 const STATE_NODE = document.getElementById('application:state');
 
-const initialState = JSON.parse(
-  decode(STATE_NODE.innerText),
-);
+const initialState = JSON.parse(decode(STATE_NODE.innerText));
 
 const styletron = new Styletron(
   document.getElementsByClassName('_styletron_hydrate_'),
