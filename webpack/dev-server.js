@@ -25,8 +25,6 @@ const clientConfig = merge(configs.client, {
   ],
 });
 
-console.log(clientConfig.entry)
-
 const clientCompiler = webpack(clientConfig);
 
 const devMiddleware = connect(
