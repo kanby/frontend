@@ -1,12 +1,9 @@
-const config = require('../webpack/configs/server').default;
 const register = require('babel-core/register');
+const config = require('../webpack/configs/server').default;
 
-const babelOptions = config.module.rules.find(
-  l => l.loader === 'babel-loader',
-).query;
-
+const isBabelLoader = l => l.loader === 'babel-loader';
+const babelOptions = config.module.rules.find(isBabelLoader).query;
 babelOptions.plugins.push('babel-plugin-webpack-alias');
-
 register(babelOptions);
 
 require('chai').use(require('sinon-chai'));
