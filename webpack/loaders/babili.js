@@ -1,12 +1,10 @@
 import config from '../config';
 import path from 'path';
 
-export default (options) => ({
+export default options => ({
   test: /\.js$/,
   loader: 'babel-loader',
-  include: [
-    path.resolve(config.get('root'), 'node_modules')
-  ],
+  include: [path.resolve(config.get('root'), 'node_modules')],
   query: {
     presets: ['babili'],
   },

@@ -5,19 +5,22 @@ import path from 'path';
 const babelLoader = (options = {}) => ({
   test: /\.js$/,
   loader: 'babel-loader',
-  include: [ path.resolve(config.get('root'), 'src') ],
+  include: [path.resolve(config.get('root'), 'src')],
   query: {
     env: {
       production: {
-        presets: [ 'babili' ],
+        presets: ['babili'],
       },
     },
     presets: [
-      ['env', {
-        exclude: ['transform-async-to-generator'],
-        targets: get(options, 'babel.targets', { node: true }),
-      }],
-      'react'
+      [
+        'env',
+        {
+          exclude: ['transform-async-to-generator'],
+          targets: get(options, 'babel.targets', { node: true }),
+        },
+      ],
+      'react',
     ],
     plugins: [
       ['fast-async', { useRuntimeModule: true }],

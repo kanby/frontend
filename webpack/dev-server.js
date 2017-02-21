@@ -1,20 +1,21 @@
-const Koa = require('koa');
-const chalk = require('chalk');
-const path = require('path');
-const merge = require('webpack-merge');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackConfig = require('./webpack.config.js');
-const connect = require('koa-connect');
-const mount = require('koa-mount');
+import Koa from 'koa';
+import config from './config';
+import * as configs from './configs';
+import chalk from 'chalk';
+import path from 'path';
+import { merge } from './util';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import connect from 'koa-connect';
+import mount from 'koa-mount';
 
 const server = new Koa();
-const serverPort = 3000;
+const serverPort = config.get('dev:port');
 
 const built = { client: false, server: false };
 
-const clientConfig = merge(webpackConfig.find(c => c.name === 'client'), {
+const clientConfig = merge(configs.client, {
   entry: {
     client: ['webpack-hot-middleware/client'],
   },
@@ -24,22 +25,26 @@ const clientConfig = merge(webpackConfig.find(c => c.name === 'client'), {
   ],
 });
 
+console.log(clientConfig.entry)
+
 const clientCompiler = webpack(clientConfig);
 
-const devMiddleware = connect(webpackDevMiddleware(clientCompiler, {
+const devMiddleware = connect(
+  webpackDevMiddleware(clientCompiler, {
     stats: 'minimal',
     publicPath: clientConfig.output.publicPath,
-  }));
+  }),
+);
 
 const hotMiddleware = connect(webpackHotMiddleware(clientCompiler));
 
-const waitForBuild = (done) => {
+const waitForBuild = done => {
   if (built.client && built.server) {
     done();
   }
 
   setTimeout(() => waitForBuild(done), 200);
-}
+};
 
 server.use((ctx, next) => {
   return new Promise((res, rej) => {
@@ -63,20 +68,21 @@ server.use((ctx, next) => {
 server.use(hotMiddleware);
 server.listen(serverPort);
 
-const serverConfig = merge(webpackConfig.find(c => c.name === 'server'), {
-    entry: {
-      server: path.join(__dirname, 'src', 'server', 'server.js'),
-    },
-    output: {
-      libraryTarget: 'commonjs2',
-    },
-  });
+const serverConfig = merge(configs.server, {
+  entry: {
+    server: path.join(config.get('root'), 'src/server/server.js'),
+  },
+  output: {
+    libraryTarget: 'commonjs2',
+  },
+});
 
 const serverCompiler = webpack(serverConfig);
 
 const serverFile = path.join(
+  config.get('root'),
   serverConfig.output.path,
-  serverConfig.output.filename.replace('[name]', serverConfig.name)
+  serverConfig.output.filename.replace('[name]', serverConfig.name),
 );
 
 let serverMiddleware;
@@ -94,7 +100,9 @@ clientCompiler.watch({}, (err, stats) => {
 
   built.client = true;
 
-  return console.log(chalk.white(chalk.yellow('INFO:'), 'Client bundle compiled.'));
+  return console.log(
+    chalk.white(chalk.yellow('INFO:'), 'Client bundle compiled.'),
+  );
 });
 
 serverCompiler.watch({}, (err, stats) => {

@@ -7,7 +7,7 @@ import * as loaders from '../loaders';
 
 const cache = {};
 
-export default (options) => ({
+export default options => ({
   cache: cache,
   context: path.join(config.get('root'), 'src'),
   output: {
@@ -17,8 +17,18 @@ export default (options) => ({
   resolve: {
     alias: {
       client: path.resolve(config.get('root'), 'src', 'client'),
-      components: path.resolve(config.get('root'), 'src', 'shared', 'components'),
-      compositions: path.resolve(config.get('root'), 'src', 'shared', 'compositions'),
+      components: path.resolve(
+        config.get('root'),
+        'src',
+        'shared',
+        'components',
+      ),
+      compositions: path.resolve(
+        config.get('root'),
+        'src',
+        'shared',
+        'compositions',
+      ),
       server: path.resolve(config.get('root'), 'src', 'server'),
       shared: path.resolve(config.get('root'), 'src', 'shared'),
       test: path.resolve(config.get('root'), 'test'),
@@ -36,5 +46,5 @@ export default (options) => ({
       'process.env.COMMIT_SHA': JSON.stringify(config.get('commit-sha')),
     }),
   ],
-  devtool: 'source-map'
-})
+  devtool: 'source-map',
+});
