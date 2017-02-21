@@ -5,7 +5,6 @@ export default (options) => ({
   test: /\.js$/,
   loader: 'babel-loader',
   include: [
-    path.resolve(config.get('root'), 'src'),
     path.resolve(config.get('root'), 'node_modules')
   ],
   query: {
