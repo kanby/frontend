@@ -9,7 +9,7 @@ const cache = {};
 
 export default options => ({
   cache: cache,
-  context: path.join(config.get('root'), 'src'),
+  context: config.get('root'),
   output: {
     filename: '[name].js',
     path: 'dist',
@@ -41,7 +41,6 @@ export default options => ({
     ],
   },
   plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env.COMMIT_SHA': JSON.stringify(config.get('commit-sha')),
     }),
